@@ -2,6 +2,7 @@ import { FaUpload } from "react-icons/fa";
 import { BsStars } from "react-icons/bs";
 import { FaHeadSideVirus } from "react-icons/fa6";
 import { FiTarget } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -40,7 +41,7 @@ export default function Hero() {
             <div className="flex flex-wrap gap-4">
               <button className="flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold shadow-lg hover:scale-105 transition">
                 <FaUpload />
-                Upload Resume
+                <Link to="/dashboard">Upload Resume</Link>
               </button>
 
               <button className="px-8 py-4 rounded-xl border font-bold text-gray-700 hover:bg-gray-100 transition">
