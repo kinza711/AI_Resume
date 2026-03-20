@@ -7,7 +7,9 @@ import ProfilePage from "./pages/ProfilePage";
 import DashboardPage from "./pages/DashboardPage";
 import F404Page from "./pages/F404Page";
 import WorkingPage from "./pages/WorkingPage";
-
+import AdminDashboard from "./pages/AdminDashbaord";
+import UserManagement from "./pages/UserManagement";
+import EditUser from "./pages/EditUser";
 const App = () => {
   return (
     <div className="main">
@@ -18,6 +20,10 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/usermanag" element={<UserManagement />} />
+          <Route path="/edituser" element={<EditUser />} />
+
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/404" element={<F404Page />} />
           <Route path="/working" element={<WorkingPage />} />
         </Routes>
