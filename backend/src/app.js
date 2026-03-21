@@ -1,6 +1,7 @@
 import express from "express";
 const app = express();
 import cors from "cors";
+import authRoutes from "./Routes/authRoutes.js";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -18,6 +19,8 @@ app.use(
   }),
 );
 
+// logic routes
+app.use("/", authRoutes);
 //default apge
 app.get("/", (req, res) => {
   res.send("welcome to the backend kinza");
