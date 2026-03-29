@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema(
     //premium: { type: Boolean, default: false },
     //subscriptionPlan: { type: String, default: "free" },
     //subscriptionExpires: { type: Date },
-    //role: { type: String, default: "user" },
+    role: { type: String, default: "user" },
+    phone: { type: String },
     //resumeHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "Resume" }],
     //lastLogin: { type: Date },
     //usageStats: {

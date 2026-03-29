@@ -16,6 +16,14 @@ dist-ssr
 .env
 .env.production
 
+#-----------Trash parsing files----------------
+pdfparse
+parseRoutes.js
+files
+*.pdf
+
+#-------------Trash parsing files----------
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

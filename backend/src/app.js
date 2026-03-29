@@ -4,6 +4,8 @@ import cors from "cors";
 import authRoutes from "./Routes/authRoutes.js";
 import userRoutes from "./Routes/userRoutes.js";
 
+//import parseRoutes from "./Routes/parseRoutes.js";
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -16,13 +18,15 @@ const allowedOrigin =
 app.use(
   cors({
     origin: allowedOrigin,
-    Credentials: true,
+    credentials: true,
   }),
 );
 
 // logic routes
 app.use("/", authRoutes);
 app.use("/", userRoutes);
+//parse-pdf
+//app.use("/", parseRoutes);
 //default apge
 app.get("/", (req, res) => {
   res.send("welcome to the backend kinza");

@@ -6,7 +6,7 @@ import { generateToken } from "../utils/generateToken.js";
 
 export const Register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, role, email, password } = req.body;
 
     // if (!req.file) {
     //   return res.status(400).json({
@@ -25,6 +25,7 @@ export const Register = async (req, res) => {
 
     const register = await AIUser.create({
       name,
+      role,
       email,
       password: hashpassword,
     });
@@ -34,6 +35,9 @@ export const Register = async (req, res) => {
     });
   } catch (err) {
     console.log(err, "user not registered");
+    res.status(500).json({
+      message: "Server error",
+    });
   }
 };
 
@@ -42,7 +46,7 @@ export const Register = async (req, res) => {
 export const Login = async (req, res) => {
   try {
     // add info
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
     //find email
     const user = await AIUser.findOne({ email });
     // find user
@@ -52,16 +56,17 @@ export const Login = async (req, res) => {
       });
     }
     // match role
-    // if (role !== user.role) {
-    //   return res.status(403).json({
-    //     message: "role not match invalid credintials",
-    //   });
-    // }
+    if (role !== user.role) {
+      return res.status(403).json({
+        message: "role not match invalid credintials",
+      });
+    }
+
     // match password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(403).json({
-        message: "password is incorrrect invalid crediantials",
+        message: "email or password is incorrrect invalid crediantials",
       });
     }
 
@@ -76,7 +81,7 @@ export const Login = async (req, res) => {
     // }
 
     res.status(200).json({
-      message: "user is varified or loggedin ",
+      message: "Wellcome Back",
       data: user,
       // user: {
       //   token: token,

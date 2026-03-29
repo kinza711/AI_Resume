@@ -89,6 +89,7 @@ import { LuHistory } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { FaUsersGear } from "react-icons/fa6";
 
 export default function Sidebar() {
   return (
@@ -121,6 +122,17 @@ export default function Sidebar() {
           </span>
           Dashboard
         </Link>
+
+        <Link
+          to="/usermanag"
+          className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
+        >
+          <span className="material-symbols-outlined">
+            <FaUsersGear />
+          </span>
+          Users
+        </Link>
+
         <Link
           to="/working"
           className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"

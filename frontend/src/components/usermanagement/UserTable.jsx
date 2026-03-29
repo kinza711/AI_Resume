@@ -1,42 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserRow from "./UserRow";
 import Pagination from "../Pagination";
+import api from "../../services/api";
 
 export default function UserTable() {
-  const users = [
-    {
-      name: "Alex Morgan",
-      email: "alex.m@lumina-ai.com",
-      role: "Admin",
-      bgColor: "purple",
-      status: "Active",
-      date: "Oct 12, 2023",
-    },
-    {
-      name: "Sarah Chen",
-      email: "s.chen@design.co",
-      role: "Premium",
-      bgColor: "red",
-      status: "Active",
-      date: "Jan 05, 2024",
-    },
-    {
-      name: "Julian Wright",
-      email: "j.wright@freelance.com",
-      role: "User",
-      bgColor: "orange",
-      status: "Inactive",
-      date: "Dec 18, 2023",
-    },
-    {
-      name: "Marcus Thorne",
-      email: "marcus.t@enterprise.io",
-      role: "Premium",
-      bgColor: "red",
-      status: "Active",
-      date: "Feb 22, 2024",
-    },
-  ];
+  const [users, setUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 5;
+
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const totalPages = Math.ceil(users.length / usersPerPage);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const AllUsers = await api.get("/users");
+        setUsers(AllUsers.data.data);
+      } catch (err) {
+        alert("not found user");
+        console.error(err, "user not found");
+      }
+    };
+    fetchUsers();
+  }, []);
 
   return (
     <div
@@ -80,14 +69,27 @@ export default function UserTable() {
           </thead>
 
           <tbody>
-            {users.map((user, index) => (
-              <UserRow key={index} {...user} />
+            {currentUsers.map((user, index) => (
+              <UserRow
+                key={index}
+                id={user._id}
+                name={user.name}
+                email={user.email}
+                role={user.role}
+                status="Active" // bad my change kru gi
+                date={new Date(user.createdAt).toLocaleDateString()}
+                //{...user}
+              />
             ))}
           </tbody>
         </table>
       </div>
 
-      <Pagination />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }

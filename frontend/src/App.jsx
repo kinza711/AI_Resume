@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/usermanag" element={<UserManagement />} />
-          <Route path="/edituser" element={<EditUser />} />
+          <Route path="/edituser/:id" element={<EditUser />} />
 
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/404" element={<F404Page />} />

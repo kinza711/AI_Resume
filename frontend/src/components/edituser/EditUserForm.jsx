@@ -1,23 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import api from "../../services/api";
+
 import {
-  MdArrowBack,
   MdExpandMore,
   MdLockReset,
   MdAutoAwesome,
   MdSave,
 } from "react-icons/md";
+import { useParams } from "react-router-dom";
+import Back from "../buttons/Back";
 
 export default function EditUserForm() {
+  const { id } = useParams();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    role: "",
+    phone: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get(`/edit/${id}`);
+        setFormData(res.data.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUser();
+  }, [id]);
+
+  const handleUpdate = async () => {
+    try {
+      const res = await api.put(`/update/${id}`, formData);
+      setFormData(res.data.data);
+      alert("user updared successfully");
+    } catch (err) {
+      alert("user not updared");
+      console.error(err);
+    }
+  };
+
   return (
     <div className="w-full flex justify-center">
       {/* Center Container */}
       <div className="w-full max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
         {/* Back */}
         <div className="mb-6">
-          <button className="flex items-center gap-2 text-gray-500 hover:text-purple-600 transition">
-            <MdArrowBack />
-            <span className="text-sm font-medium">Back to Users</span>
-          </button>
+          <Back />
         </div>
 
         {/* Header */}
@@ -51,7 +90,9 @@ export default function EditUserForm() {
                 </label>
                 <input
                   type="text"
-                  defaultValue="Jordan Smith"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="mt-2 w-full px-5 py-3 bg-gray-100 rounded-xl focus:ring-2 focus:ring-purple-400 outline-none"
                 />
               </div>
@@ -64,7 +105,10 @@ export default function EditUserForm() {
                   </label>
                   <input
                     type="email"
-                    defaultValue="jordan.smith@example.com"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    defaultValue="test.@example.com"
                     className="mt-2 w-full px-5 py-3 bg-gray-100 rounded-xl focus:ring-2 focus:ring-purple-400 outline-none"
                   />
                 </div>
@@ -75,6 +119,9 @@ export default function EditUserForm() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     defaultValue="+1 (555) 234-5678"
                     className="mt-2 w-full px-5 py-3 bg-gray-100 rounded-xl focus:ring-2 focus:ring-purple-400 outline-none"
                   />
@@ -191,7 +238,10 @@ export default function EditUserForm() {
               Discard
             </button>
 
-            <button className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full font-bold shadow-lg hover:scale-105 transition">
+            <button
+              onClick={handleUpdate}
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full font-bold shadow-lg hover:scale-105 transition"
+            >
               <MdSave />
               Save Changes
             </button>
