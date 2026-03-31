@@ -5,7 +5,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaBolt } from "react-icons/fa6";
 import api from "../../services/api";
 
-export default function LeftPanel() {
+export default function LeftPanel({ setImprovedText }) {
   const [file, setFile] = useState(null);
   const [improvementType, setImprovementType] = useState("full");
   const [loading, setLoading] = useState(false);
@@ -43,6 +43,10 @@ export default function LeftPanel() {
     try {
       setLoading(true);
       const res = await api.post("/upload", formData);
+
+      const parsed = JSON.parse(res.data.data.improvedText);
+      setImprovedText(parsed); // 👈 IMPORTANT
+
       alert(res.data.message);
       setFile(null);
     } catch (err) {

@@ -1,5 +1,6 @@
 import Resume from "../Models/ResumeModel.js";
 import parser from "../utils/parser.cjs";
+import { formatResumeData } from "../utils/formatResume.js";
 
 const { parseResume } = parser;
 import uploadToCloudinary from "../utils/uploadToCloudinary.js";
@@ -24,7 +25,8 @@ export const UploadResume = async (req, res) => {
 
     // 4.  AI CALL improves text
     const improvedText = await improveResume(originalText, improvementType);
-
+    //show staructuresd data
+    const structuredData = formatResumeData(improvedText);
     // ----to fast load resuem comment  step 2 & step 4----
 
     // const [resumeUrl, improvedText] = await Promise.all([
@@ -40,6 +42,7 @@ export const UploadResume = async (req, res) => {
       improvementType,
       originalText,
       improvedText,
+      improvedData: structuredData, // 🔥 NEW
       status: "completed",
     });
     res.status(200).json({

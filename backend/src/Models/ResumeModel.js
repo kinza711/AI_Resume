@@ -9,7 +9,7 @@ const resumeSchema = new mongoose.Schema(
     originalFile: { type: String }, // URL or path
     originalText: { type: String },
 
-    improvedText: { type: String },
+    improvedText: { type: Object },
     improvedFile: { type: String }, // generated PDF
 
     fileType: { type: String }, // pdf, docx, txt

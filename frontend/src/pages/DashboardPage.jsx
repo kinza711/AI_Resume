@@ -2,7 +2,9 @@ import LeftPanel from "../components/dashboard/LeftUpload";
 import RightPanel from "../components/dashboard/RightUpload";
 import Sidebar from "../components/sidebar/Sidebar";
 import Header from "../components/header/Header";
+import { useState } from "react";
 export default function Dashboard() {
+  const [improvedText, setImprovedText] = useState("");
   return (
     <div className="flex min-h-screen pt-16">
       <Header />
@@ -25,10 +27,10 @@ export default function Dashboard() {
 
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
             <div className="xl:col-span-5">
-              <LeftPanel />
+              <LeftPanel setImprovedText={setImprovedText} />
             </div>
             <div className="xl:col-span-7">
-              <RightPanel />
+              <RightPanel improvedText={improvedText} />
             </div>
           </div>
         </div>
