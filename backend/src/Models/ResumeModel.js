@@ -5,7 +5,7 @@ const resumeSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
     title: { type: String },
-
+    resume: { type: String }, // upload resume
     originalFile: { type: String }, // URL or path
     originalText: { type: String },
 
@@ -13,7 +13,11 @@ const resumeSchema = new mongoose.Schema(
     improvedFile: { type: String }, // generated PDF
 
     fileType: { type: String }, // pdf, docx, txt
-    improvementType: { type: String, enum: ["text", "full"], default: "text" },
+    improvementType: {
+      type: String,
+      enum: ["text", "full", "ATS"],
+      default: "text",
+    },
 
     jobRole: { type: String },
 

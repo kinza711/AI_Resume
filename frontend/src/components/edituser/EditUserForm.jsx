@@ -71,7 +71,7 @@ export default function EditUserForm() {
           </div>
 
           <div className="px-4 py-1.5 bg-indigo-100 rounded-full flex items-center gap-2 w-fit">
-            <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-purple-600 animate-ping"></span>
             <span className="text-xs font-bold text-indigo-700 uppercase">
               Active Analysis
             </span>

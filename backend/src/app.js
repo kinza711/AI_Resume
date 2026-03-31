@@ -3,8 +3,7 @@ const app = express();
 import cors from "cors";
 import authRoutes from "./Routes/authRoutes.js";
 import userRoutes from "./Routes/userRoutes.js";
-
-//import parseRoutes from "./Routes/parseRoutes.js";
+import resuemRoutes from "./Routes/resumeRoutes.js";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,8 +24,8 @@ app.use(
 // logic routes
 app.use("/", authRoutes);
 app.use("/", userRoutes);
-//parse-pdf
-//app.use("/", parseRoutes);
+app.use("/", resuemRoutes);
+
 //default apge
 app.get("/", (req, res) => {
   res.send("welcome to the backend kinza");

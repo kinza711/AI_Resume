@@ -1,57 +1,146 @@
+import { useState } from "react";
 import { BsStars } from "react-icons/bs";
 import { TbCloudUpload } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBolt } from "react-icons/fa6";
+import api from "../../services/api";
 
 export default function LeftPanel() {
+  const [file, setFile] = useState(null);
+  const [improvementType, setImprovementType] = useState("full");
+  const [loading, setLoading] = useState(false);
+
+  // Handle file selection
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  // Handle drag & drop
+  const handleDrop = (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  // Handle upload
+  const handleUpload = async (e) => {
+    e.preventDefault(); // prevent form submit reload
+
+    if (!file) {
+      alert("Please select a resume first");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("resume", file);
+    formData.append("improvementType", improvementType);
+
+    try {
+      setLoading(true);
+      const res = await api.post("/upload", formData);
+      alert(res.data.message);
+      setFile(null);
+    } catch (err) {
+      alert(err);
+      console.error(err);
+      //alert("Upload failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-8">
       {/* Upload Card */}
-      <div className="bg-[#ffffff] rounded-3xl  p-8 shadow-[0_20px_40px_rgba(25,28,30,0.06)] transition-all">
+      <form
+        onSubmit={handleUpload}
+        encType="multipart/form-data"
+        className="bg-[#ffffff] rounded-3xl p-8 shadow-[0_20px_40px_rgba(25,28,30,0.06)] transition-all"
+      >
+        {/* Header */}
         <div className="flex items-center gap-2 mb-6">
-          <span className="material-symbols-outlined text-[#5f00e3]">
+          <span className="text-[#5f00e3] text-2xl">
             <BsStars />
           </span>
           <h2 className="font-headline font-bold text-xl text-[#000666]">
             New Project
           </h2>
         </div>
-        <div className="border-2 border-dashed border-[#c6c5d4] rounded-xl p-10 flex flex-col items-center justify-center bg-[#f2f4f6]/30 hover:bg-[#f2f4f6] transition-colors cursor-pointer group">
-          <span className="material-symbols-outlined text-[#767683] text-5xl mb-4 group-hover:text-[#5f00e3] transition-colors">
+
+        {/* Drag & Drop */}
+        <div
+          className="border-2 border-dashed border-[#c6c5d4] rounded-xl p-10 flex flex-col items-center justify-center bg-[#f2f4f6]/30 hover:bg-[#f2f4f6] transition-colors cursor-pointer group"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
+          <span className="text-[#767683] text-5xl mb-4 group-hover:text-[#5f00e3] transition-colors">
             <TbCloudUpload />
           </span>
           <p className="text-[#454652] font-medium mb-4 text-center">
             Drag and drop your resume here or
           </p>
-          <button className="px-6 py-2 rounded-full border border-[#000666] text-[#000666] font-bold text-sm hover:bg-[#000666] hover:text-white transition-all">
+
+          {/* Hidden input */}
+          <input
+            type="file"
+            accept=".pdf,.doc,.docx"
+            onChange={handleFileChange}
+            className="hidden"
+            id="resume-upload"
+          />
+          <label
+            htmlFor="resume-upload"
+            className="px-6 py-2 rounded-full border border-[#000666] text-[#000666] font-bold text-sm hover:bg-[#000666] hover:text-white transition-all cursor-pointer"
+          >
             Select Resume
-          </button>
+          </label>
+
+          {/* Selected file name */}
+          {file && <p className="text-sm mt-2">{file.name}</p>}
+
           <p className="text-[#767683] text-xs mt-4">
             Supports PDF, DOCX (Max 5MB)
           </p>
         </div>
+
+        {/* Improvement Type */}
         <div className="mt-8 space-y-4">
           <label className="block text-sm font-bold text-[#000666] mb-1">
             Improvement Type
           </label>
           <div className="relative">
-            <select className="w-full bg-[#e6e8ea] border-none rounded-xl py-3 px-4 appearance-none focus:ring-2 focus:ring-[#5f00e3]/20 font-medium">
-              <option>Full resume improvement</option>
-              <option>Text-only improvement</option>
-              <option>ATS Optimization</option>
+            <select
+              value={improvementType}
+              onChange={(e) => setImprovementType(e.target.value)}
+              className="w-full bg-[#e6e8ea] border-none rounded-xl py-3 px-4 appearance-none focus:ring-2 focus:ring-[#5f00e3]/20 font-medium"
+            >
+              <option value="full">Full resume improvement</option>
+              <option value="text">Text-only improvement</option>
+              <option value="ATS">ATS Optimization</option>
             </select>
-            <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-[#767683] pointer-events-none">
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#767683] pointer-events-none">
               <IoIosArrowDown />
             </span>
           </div>
         </div>
-        <button className="w-full bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-full py-4 mt-8 font-bold text-lg shadow-xl glow-hover flex items-center justify-center gap-2">
-          <span className="material-symbols-outlined">
-            <FaBolt />
-          </span>
-          Improve Resume
+
+        {/* Upload Button */}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full flex items-center justify-center gap-2 bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-full py-4 mt-8 font-bold text-lg shadow-xl glow-hover transition ${
+            loading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+        >
+          <FaBolt />
+          {loading ? "Uploading..." : "Improve Resume"}
         </button>
-      </div>
+      </form>
 
       {/* Info Card */}
       <div className="bg-[#1a237e] text-white p-6 rounded-3xl relative overflow-hidden">
