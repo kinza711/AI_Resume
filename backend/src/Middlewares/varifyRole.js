@@ -7,7 +7,7 @@ const authorizeRoles = (...roles) => {
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({ message: "Forbidden: Insufficient role" });
     }
-    //console.log("USER IN MIDDLEWARE:", req.user);
+    console.log("USER IN MIDDLEWARE:", req.user);
     next();
   };
 };

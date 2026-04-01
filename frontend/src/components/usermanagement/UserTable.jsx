@@ -20,7 +20,6 @@ export default function UserTable() {
         const AllUsers = await api.get("/users");
         setUsers(AllUsers.data.data);
       } catch (err) {
-        alert("not found user");
         console.error(err, "user not found");
       }
     };

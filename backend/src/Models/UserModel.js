@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
+    heading: { type: String },
     password: { type: String, required: true },
     //premium: { type: Boolean, default: false },
     //subscriptionPlan: { type: String, default: "free" },

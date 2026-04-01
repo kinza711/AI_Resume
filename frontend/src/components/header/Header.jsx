@@ -5,6 +5,7 @@ import { FaGear } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 export default function Header() {
+  //const user = JSON.parse(localStorage.getItem("user"));
   return (
     <header className="fixed   top-0 w-full z-50 flex justify-between items-center px-8 h-16 bg-[#30388A] text-white">
       {/* Left: Brand + Nav */}

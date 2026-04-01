@@ -12,6 +12,8 @@ import UserManagement from "./pages/UserManagement";
 import EditUser from "./pages/EditUser";
 import AdminLog from "./components/auth/AdminLog";
 import ResuemPage from "./pages/ResuemPage";
+import ProtectedRoute from "./utils/protected";
+
 const App = () => {
   return (
     <div className="main">
@@ -21,12 +23,40 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/admin" element={<AdminLog />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute allowedRoles={["user", "Admin"]}>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/usermanag" element={<UserManagement />} />
-          <Route path="/edituser/:id" element={<EditUser />} />
+          <Route
+            path="/usermanag"
+            element={
+              <ProtectedRoute allowedRoles={["Admin"]}>
+                <UserManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/edituser/:id"
+            element={
+              <ProtectedRoute allowedRoles={["Admin"]}>
+                <EditUser />
+              </ProtectedRoute>
+            }
+          />
 
-          <Route path="/admindashboard" element={<AdminDashboard />} />
+          <Route
+            path="/admindashboard"
+            element={
+              <ProtectedRoute allowedRoles={["Admin"]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/404" element={<F404Page />} />
           <Route path="/working" element={<WorkingPage />} />
           <Route path="/airesume" element={<ResuemPage />} />

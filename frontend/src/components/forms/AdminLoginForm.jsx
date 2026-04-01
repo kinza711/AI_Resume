@@ -21,6 +21,23 @@ const AdminLoginForm = () => {
     e.preventDefault();
     try {
       const res = await api.post("/login", formData);
+      const { token, role } = res.data.user;
+      localStorage.setItem("token", token);
+      //localStorage.setItem("id", res.data.user.id);
+      localStorage.setItem("role", res.data.user.role);
+
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      // for checking user id
+      // if (!token || !id) {
+      //   console.error("login response missing or id", res.data.user);
+      //   return;
+      // }
+      // for checking user role
+      if (!role) {
+        alert("user role is not matched");
+        return;
+      }
       //   alert(res.data.message);
       alert("Wellcome Back To Admin Pannel");
       navigate("/admindashboard");

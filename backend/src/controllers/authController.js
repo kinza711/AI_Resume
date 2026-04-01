@@ -2,6 +2,7 @@ import AIUser from "../Models/UserModel.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
+
 // register users
 
 export const Register = async (req, res) => {
@@ -83,15 +84,15 @@ export const Login = async (req, res) => {
     res.status(200).json({
       message: "Wellcome Back",
       data: user,
-      // user: {
-      //   token: token,
-      //   name: user.name,
-      //   id: user._id,
-      //   email: user.email,
-      //   role: user.role,
-      //   pic: user.pic,
-      //   heading: user.heading,
-      // },
+      user: {
+        token: token,
+        name: user.name,
+        //id: user._id,
+        email: user.email,
+        role: user.role,
+        //pic: user.pic,
+        heading: user.heading,
+      },
     });
     console.log(user);
   } catch (err) {

@@ -88,11 +88,31 @@ import { MdDashboard } from "react-icons/md";
 import { LuHistory } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaUsersGear } from "react-icons/fa6";
 import { PiReadCvLogoBold } from "react-icons/pi";
+import api from "../../services/api";
 
 export default function Sidebar() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const role = user?.role;
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/logout");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      alert("you're loggedout successfully");
+      navigate("/login");
+      window.location.reload();
+    } catch (err) {
+      alert("you're not loggedout ", err);
+      console.error(err);
+    }
+  };
   return (
     <aside className="bg-[#1A237E] h-[calc(100vh-64px)] w-64 fixed left-0 top-16 hidden lg:flex flex-col py-6 gap-2 shadow-2xl z-40">
       {/* Profile Info */}
@@ -104,10 +124,12 @@ export default function Sidebar() {
             className="w-10 h-10 rounded-full object-cover"
           />
           <div>
-            <div className="text-white font-headline font-semibold text-sm">
-              Professional Architect
+            <div className="text-white capitalize font-headline font-semibold text-sm">
+              {user.name || "Professional Architect"}
             </div>
-            <div className="text-indigo-300 text-xs">Premium Tier</div>
+            <div className="text-indigo-300 text-xs">
+              {user.role || "Premium Tier"}
+            </div>
           </div>
         </div>
       </div>
@@ -123,16 +145,22 @@ export default function Sidebar() {
           </span>
           Dashboard
         </Link>
+        {role === "Admin" && (
+          <Link
+            to="/usermanag"
+            className={`text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out  ${
+              location.path === "/usermanag"
+                ? "text-brand-primary bg-brand-primary/10"
+                : "text-slate-500 hover:bg-slate-50"
+            } `}
+          >
+            <span className="material-symbols-outlined">
+              <FaUsersGear />
+            </span>
+            Users
+          </Link>
+        )}
 
-        <Link
-          to="/usermanag"
-          className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
-        >
-          <span className="material-symbols-outlined">
-            <FaUsersGear />
-          </span>
-          Users
-        </Link>
         <Link
           to="/myresume"
           className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
@@ -161,15 +189,15 @@ export default function Sidebar() {
           </span>
           Profile
         </Link>
-        <a
-          to="/working"
+        <button
+          onClick={handleLogout}
           className="text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
         >
           <span className="material-symbols-outlined">
             <MdLogout />
           </span>
           Logout
-        </a>
+        </button>
       </nav>
 
       {/* Upgrade Button */}
