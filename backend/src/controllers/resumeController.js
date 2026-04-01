@@ -9,7 +9,7 @@ import { improveResume } from "../services/aiservices.js";
 
 export const UploadResume = async (req, res) => {
   try {
-    const { improvementType } = req.body;
+    const { improvementType, jobRole } = req.body;
 
     // 1. file check
     if (!req.file) {
@@ -24,7 +24,11 @@ export const UploadResume = async (req, res) => {
     console.log("Parsed Text:", originalText.slice(0, 100));
 
     // 4.  AI CALL improves text
-    const improvedText = await improveResume(originalText, improvementType);
+    const improvedText = await improveResume(
+      originalText,
+      improvementType,
+      jobRole,
+    );
     //show staructuresd data
     const structuredData = formatResumeData(improvedText);
     // ----to fast load resuem comment  step 2 & step 4----
@@ -40,6 +44,7 @@ export const UploadResume = async (req, res) => {
     const uplaodresume = await Resume.create({
       resume: resumeUrl,
       improvementType,
+      jobRole,
       originalText,
       improvedText,
       improvedData: structuredData, // 🔥 NEW

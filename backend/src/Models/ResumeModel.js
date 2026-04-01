@@ -19,7 +19,11 @@ const resumeSchema = new mongoose.Schema(
       default: "text",
     },
 
-    jobRole: { type: String },
+    jobRole: {
+      type: String,
+      //enum: ["fullstack", "frontend", "backend", "react", "ai", "wordpress"],
+      default: "react",
+    },
 
     hasWatermark: { type: Boolean, default: true },
 

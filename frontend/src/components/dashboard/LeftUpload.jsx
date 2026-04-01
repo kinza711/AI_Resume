@@ -9,7 +9,10 @@ import { useNavigate } from "react-router-dom";
 export default function LeftPanel({ setImprovedText }) {
   const [file, setFile] = useState(null);
   const [improvementType, setImprovementType] = useState("full");
+  const [jobRole, setJobRole] = useState("");
+  const [customRole, setCustomRole] = useState(""); // user-defined
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   // Handle file selection
   const handleFileChange = (e) => {
@@ -37,9 +40,13 @@ export default function LeftPanel({ setImprovedText }) {
       return;
     }
 
+    const roleToSend = jobRole === "other" ? customRole : jobRole;
+
     const formData = new FormData();
     formData.append("resume", file);
     formData.append("improvementType", improvementType);
+    // formData.append("jobRole", jobRole);
+    formData.append("jobRole", roleToSend);
 
     try {
       setLoading(true);
@@ -47,10 +54,10 @@ export default function LeftPanel({ setImprovedText }) {
 
       const parsed = JSON.parse(res.data.data.improvedText);
       setImprovedText(parsed); // 👈 IMPORTANT
-
+      //setJobRole(parsed);
       alert(res.data.message);
       setFile(null);
-      navigate("/airesume");
+      //navigate("/airesume");
     } catch (err) {
       alert(err);
       console.error(err);
@@ -129,6 +136,40 @@ export default function LeftPanel({ setImprovedText }) {
               <option value="text">Text-only improvement</option>
               <option value="ATS">ATS Optimization</option>
             </select>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#767683] pointer-events-none">
+              <IoIosArrowDown />
+            </span>
+          </div>
+        </div>
+
+        {/* Job Type */}
+        <div className="mt-8 space-y-4">
+          <label className="block text-sm font-bold text-[#000666] mb-1">
+            Job Type
+          </label>
+          <div className="relative">
+            <select
+              value={jobRole}
+              onChange={(e) => setJobRole(e.target.value)}
+              className="w-full bg-[#e6e8ea] border-none rounded-xl py-3 px-4 appearance-none focus:ring-2 focus:ring-[#5f00e3]/20 font-medium"
+            >
+              <option value="fullstack">Full-Stack Developer</option>
+              <option value="frontend">Frontend Developer</option>
+              <option value="backend">Backend Developer</option>
+              <option value="react">React Developer</option>
+              <option value="ai">AI-Integration</option>
+              <option value="wordpress">Wordpress Developer</option>
+              <option value="other">Other</option>
+            </select>
+            {jobRole === "other" && (
+              <input
+                type="text"
+                placeholder="Enter your job role"
+                value={customRole}
+                onChange={(e) => setCustomRole(e.target.value)}
+                className="mt-2 w-full rounded-xl border py-2 px-4"
+              />
+            )}
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#767683] pointer-events-none">
               <IoIosArrowDown />
             </span>
