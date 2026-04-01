@@ -1,6 +1,9 @@
 import { VscZoomIn } from "react-icons/vsc";
 import { IoMdPrint } from "react-icons/io";
 import { FiDownload } from "react-icons/fi";
+// sab imports upar
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import ResumeTemplate from "./WatermarkTemplate";
 
 export default function RightPanel({ improvedText }) {
   <div className="text-sm text-[#191c1e] leading-relaxed font-medium whitespace-pre-line">
@@ -32,7 +35,7 @@ export default function RightPanel({ improvedText }) {
       </div>
 
       {/* Preview Body */}
-      <div className="p-10 h-full overflow-y-auto bg-white">
+      <div id="resume-preview" className="p-10 h-full overflow-y-auto bg-white">
         <div className="max-w-2xl mx-auto space-y-8 font-['Inter']">
           <div className="text-center pb-8 border-b border-[#e6e8ea]">
             <h2 className="text-3xl font-bold text-[#000666] mb-1">
@@ -50,13 +53,12 @@ export default function RightPanel({ improvedText }) {
             </h3>
             <p className="text-sm text-[#191c1e] leading-relaxed font-medium">
               {improvedText.summary ||
-                "Visionary Architect with over 12 years of experience leading high-profile urban development projects"}
-              that reduced carbon footprints by 40% across metropolitan
-              residential clusters. Expert in
-              <span className="bg-[#ffd9df] text-[#8f003f] px-1 rounded border-b-2 border-[#ff5e8e]">
-                AI-assisted generative design
+                "Visionary Architect with over 12 years of experience leading high-profile urban development projects that reduced carbon footprints by 40% across metropolitan residential clusters. Expert in"}
+
+              {/* <span className="bg-[#ffd9df] text-[#8f003f] px-1 rounded border-b-2 border-[#ff5e8e]">
+                {improvedText.role || "  AI-assisted generative design"}
               </span>
-              and BIM coordination.
+              and BIM coordination. */}
             </p>
           </div>
 
@@ -164,50 +166,40 @@ export default function RightPanel({ improvedText }) {
 
             {/* Experience */}
             {improvedText?.projects ? (
-              <div className="space-y-4">
-                {improvedText.projects.map((proj, i) => (
-                  <div
-                    key={i}
-                    className="relative pl-6 border-l-2 border-[#e6e8ea]"
-                  >
-                    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#5f00e3]"></div>
-                    <div className="mb-1 flex justify-between items-baseline">
-                      <h4 className="font-bold text-[#000666]">
-                        {proj.title || "Software Developer"} |{" "}
-                        {proj.techstack || "Your Company"}
-                      </h4>
-                      <span className="text-xs text-[#767683]">
-                        {proj.live || "2024 — Present"}
-                      </span>
-                    </div>
-                    <ul className="text-sm text-[#454652] space-y-1 list-disc ml-4">
-                      {proj.details?.length > 0 ? (
-                        proj.details.map((d, j) => <li key={j}>{d}</li>)
-                      ) : (
-                        <>
-                          <li>Developed and maintained web applications.</li>
-                          <li>
-                            Collaborated with team to deliver projects on time.
-                          </li>
-                        </>
-                      )}
-                    </ul>
+              improvedText.projects.map((proj, i) => (
+                <div
+                  key={i}
+                  className="relative pl-6 border-l-2 border-[#e6e8ea]"
+                >
+                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#5f00e3]"></div>
+                  <div className="mb-1 flex justify-between items-baseline">
+                    <h4 className="font-bold text-[#000666]">{proj.title}</h4>
+                    <span className="text-xs text-[#767683]">{proj.live}</span>
                   </div>
-                ))}
-              </div>
+                  <p className="text-xs text-[#5f00e3] mb-2">
+                    Tech: {proj.techstack?.join(", ")}
+                  </p>
+                  {/* Details add karo */}
+                  {proj.details?.length > 0 && (
+                    <ul className="text-sm text-[#454652] space-y-1 list-disc ml-4">
+                      {proj.details.map((d, j) => (
+                        <li key={j}>{d}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))
             ) : (
-              // Jab koi resume upload nahi hua
+              // default
               <div className="relative pl-6 border-l-2 border-[#e6e8ea]">
                 <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#5f00e3]"></div>
-                <div className="mb-1 flex justify-between items-baseline">
-                  <h4 className="font-bold text-[#000666]">
-                    LMS Website with AI-Integration
-                  </h4>
-                  <span className="text-xs text-[#767683]">2024 — Present</span>
-                </div>
-                <ul className="text-sm text-[#454652] space-y-1 list-disc ml-4">
-                  <li>Developed and maintained web applications.</li>
-                  <li>Collaborated with team to deliver projects on time.</li>
+                <h4 className="font-bold text-[#000666]">
+                  LMS Website with AI-Integration
+                </h4>
+                <p className="text-xs text-[#5f00e3]">Tech: MERN, OpenAI</p>
+                <ul className="text-sm text-[#454652] space-y-1 list-disc ml-4 mt-2">
+                  <li>Built full-stack LMS with AI study assistant.</li>
+                  <li>Role-based access for Admin, Student, Instructor.</li>
                 </ul>
               </div>
             )}
@@ -285,14 +277,27 @@ export default function RightPanel({ improvedText }) {
       </div>
 
       {/* Preview Footer */}
-      <div className="p-8 bg-[#f2f4f6]/50 text-center space-y-4">
-        <button className="bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-full px-12 py-4 font-bold text-lg shadow-xl glow-hover inline-flex items-center gap-2">
+      <div className="p-8 bg-[#ECEEF0] text-center space-y-4">
+        {/* <button className="bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-full px-12 py-4 font-bold text-lg shadow-xl glow-hover inline-flex items-center gap-2">
           <span className="material-symbols-outlined">
             <FiDownload />
           </span>
           Download Improved Resume
-        </button>
-        <p className="text-[#454652] text-xs font-medium">
+        </button> */}
+        {/* Download button */}
+        <PDFDownloadLink
+          document={<ResumeTemplate data={improvedText} showWatermark={true} />}
+          fileName="improved-resume.pdf"
+        >
+          {({ loading }) => (
+            <button className="bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-full px-12 py-4 font-bold text-lg shadow-xl glow-hover inline-flex items-center gap-2">
+              <FiDownload />
+              {loading ? "Preparing PDF..." : "Download Improved Resume"}
+            </button>
+          )}
+        </PDFDownloadLink>
+
+        <p className="text-[#454652] py-2 text-xs font-medium">
           Guest users will have a small watermark on the final PDF.{" "}
           <a className="text-[#5f00e3] font-bold hover:underline" href="#">
             Remove watermark
@@ -302,3 +307,30 @@ export default function RightPanel({ improvedText }) {
     </div>
   );
 }
+
+// sab imports upar
+// import { PDFDownloadLink } from "@react-pdf/renderer";
+// import ResumeTemplate from "./WatermarkTemplate";
+// import { FiDownload } from "react-icons/fi";
+
+// // function ke andar sab kuch
+// export default function RightPanel({ improvedText }) {
+//   return (
+//     <div>
+//       {/* tumhara sara code yahan */}
+
+//       {/* Download button */}
+//       <PDFDownloadLink
+//         document={<ResumeTemplate data={improvedText} showWatermark={true} />}
+//         fileName="improved-resume.pdf"
+//       >
+//         {({ loading }) => (
+//           <button className="bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-full px-12 py-4 font-bold text-lg shadow-xl inline-flex items-center gap-2">
+//             <FiDownload />
+//             {loading ? "Preparing PDF..." : "Download Improved Resume"}
+//           </button>
+//         )}
+//       </PDFDownloadLink>
+//     </div>
+//   );
+// }

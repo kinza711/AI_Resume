@@ -35,7 +35,8 @@ Use this structure:
   "portfolio": "",
   "title": "",
   "summary": "",
-  "skills": [],
+  "skills": ["MongoDB", "React", "JWT", "Express", "problem-Solving", "Team Work"],
+  "techstack": [],
   "experience": [
     {
       "role": "",
@@ -47,6 +48,7 @@ Use this structure:
   "projects": [
     {
       "title": "",
+      "details": ["What the project does", "Key feature or achievement"]
       "techstack": [],
       "live": ""
     }
