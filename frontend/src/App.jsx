@@ -11,6 +11,7 @@ import AdminDashboard from "./pages/AdminDashbaord";
 import UserManagement from "./pages/UserManagement";
 import EditUser from "./pages/EditUser";
 import AdminLog from "./components/auth/AdminLog";
+import ResuemPage from "./pages/ResuemPage";
 const App = () => {
   return (
     <div className="main">
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/admindashboard" element={<AdminDashboard />} />
           <Route path="/404" element={<F404Page />} />
           <Route path="/working" element={<WorkingPage />} />
+          <Route path="/airesume" element={<ResuemPage />} />
         </Routes>
       </Router>
     </div>

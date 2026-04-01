@@ -4,12 +4,13 @@ import { TbCloudUpload } from "react-icons/tb";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaBolt } from "react-icons/fa6";
 import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function LeftPanel({ setImprovedText }) {
   const [file, setFile] = useState(null);
   const [improvementType, setImprovementType] = useState("full");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   // Handle file selection
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -49,6 +50,7 @@ export default function LeftPanel({ setImprovedText }) {
 
       alert(res.data.message);
       setFile(null);
+      navigate("/airesume");
     } catch (err) {
       alert(err);
       console.error(err);
