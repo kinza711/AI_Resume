@@ -216,7 +216,7 @@ export default function EditUserForm() {
                     Renewal Date
                   </p>
                   <p className="text-lg font-bold text-purple-600">
-                    Oct 12, 2024
+                    April, 2026
                   </p>
                 </div>
               </div>

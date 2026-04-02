@@ -4,11 +4,13 @@ import Features from "../components/home/Features";
 import CTA from "../components/home/CTA";
 import Footer from "../components/partials/Footer";
 import PricingSection from "../components/home/Pricing";
+import { useState } from "react";
 
-export default function Home() {
+export default function Home({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <div className="bg-[#f7f9fb] text-[#191c1e]">
-      <Navbar />
+      <Navbar setIsSidebarOpen={setIsSidebarOpen} />
       <main className="pt-24">
         <Hero />
         <Features />

@@ -29,11 +29,10 @@ export default function AdminLoginPage() {
               ResumeArchitect AI
             </h1>
             <div
-              className="h-1 w-20"
+              className="h-1 w-20 rounded-full"
               style={{
                 background: "linear-gradient(135deg, #5f00e3 0%, #ff5e8e 100%)",
               }}
-              className="rounded-full"
             ></div>
           </div>
           <div className="max-w-md">

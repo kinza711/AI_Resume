@@ -1,9 +1,9 @@
-
 import { FcGoogle } from "react-icons/fc";
 import { FaLinkedin } from "react-icons/fa";
 import { FaHeadSideVirus } from "react-icons/fa6";
 import { BsStars } from "react-icons/bs";
 import LoginForm from "../forms/LoginForm";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -100,7 +100,7 @@ export default function Login() {
           <p className="mt-10 text-center text-gray-500">
             New to ResumeAI?
             <span className="text-purple-600 font-semibold ml-1 cursor-pointer">
-              Create an account
+              <Link to="/register">Create an account</Link>
             </span>
           </p>
         </div>

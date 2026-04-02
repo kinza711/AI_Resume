@@ -84,19 +84,144 @@
 //   );
 // }
 
-import { MdDashboard } from "react-icons/md";
+// import { MdDashboard } from "react-icons/md";
+// import { LuHistory } from "react-icons/lu";
+// import { FaUser } from "react-icons/fa";
+// import { MdLogout } from "react-icons/md";
+// import { Link, useLocation, useNavigate } from "react-router-dom";
+// import { FaUsersGear } from "react-icons/fa6";
+// import { PiReadCvLogoBold } from "react-icons/pi";
+// import api from "../../services/api";
+
+// export default function Sidebar() {
+//   const user = JSON.parse(localStorage.getItem("user"));
+
+//   const role = user?.role;
+//   const location = useLocation();
+//   const navigate = useNavigate();
+
+//   const handleLogout = async () => {
+//     try {
+//       await api.post("/logout");
+//       localStorage.removeItem("token");
+//       localStorage.removeItem("user");
+//       alert("you're loggedout successfully");
+//       navigate("/login");
+//       window.location.reload();
+//     } catch (err) {
+//       alert("you're not loggedout ", err);
+//       console.error(err);
+//     }
+//   };
+//   return (
+//     <aside className="bg-[#1A237E] h-[calc(100vh-64px)] w-64 fixed left-0 top-16 hidden lg:flex flex-col py-6 gap-2 shadow-2xl z-40">
+//       {/* Profile Info */}
+//       <div className="px-6 mb-8">
+//         <div className="flex items-center gap-3">
+//           <img
+//             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV-S-fEwogqvUeAnCKfTcGAWfGAxFXd8eWn9lFosJ3khLroZgikZov50XoKSOL-eeoH_WaTGw5RLa5kf3B5fCSe9hvQSD1xc_dzO2Rdqeks_hQYztq4Geec3x_4E6gnnnORezcVQwX3dVLW2oHF_p6ZPESYU7BhCW71tfhVcrvz5kLJQjCCVgT-ATp2FEdtKvS-yCtDBToF6dlmXaa2f4Btx1JWegq8WSOiV1WEI3DTbZtfBxexNCsU4M8iMsgJ77Q4-77VAuHzkDf"
+//             alt="User Profile Picture"
+//             className="w-10 h-10 rounded-full object-cover"
+//           />
+//           <div>
+//             <div className="text-white capitalize font-headline font-semibold text-sm">
+//               {user.name || "Professional Architect"}
+//             </div>
+//             <div className="text-indigo-300 text-xs">
+//               {user.role || "Premium Tier"}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Navigation Links */}
+//       <nav className="flex flex-col gap-1">
+//         <Link
+//           to="/dashboard"
+//           className="bg-[#5f00e3] text-white rounded-r-full mr-4 ml-0 pl-6 py-3 shadow-[0_0_20px_rgba(95,0,227,0.4)] flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
+//         >
+//           <span className="material-symbols-outlined">
+//             <MdDashboard />
+//           </span>
+//           Dashboard
+//         </Link>
+//         {role === "Admin" && (
+//           <Link
+//             to="/usermanag"
+//             className={`text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out  ${
+//               location.path === "/usermanag"
+//                 ? "text-brand-primary bg-brand-primary/10"
+//                 : "text-slate-500 hover:bg-slate-50"
+//             } `}
+//           >
+//             <span className="material-symbols-outlined">
+//               <FaUsersGear />
+//             </span>
+//             Users
+//           </Link>
+//         )}
+
+//         <Link
+//           to="/myresume"
+//           className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
+//         >
+//           <span className="material-symbols-outlined">
+//             <PiReadCvLogoBold />
+//           </span>
+//           My Resumes
+//         </Link>
+
+//         <Link
+//           to="/working"
+//           className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
+//         >
+//           <span className="material-symbols-outlined">
+//             <LuHistory />
+//           </span>
+//           History
+//         </Link>
+//         <Link
+//           to="/profile"
+//           className="text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
+//         >
+//           <span className="material-symbols-outlined">
+//             <FaUser />
+//           </span>
+//           Profile
+//         </Link>
+//         <button
+//           onClick={handleLogout}
+//           className="text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
+//         >
+//           <span className="material-symbols-outlined">
+//             <MdLogout />
+//           </span>
+//           Logout
+//         </button>
+//       </nav>
+
+//       {/* Upgrade Button */}
+//       <div className="mt-auto px-4">
+//         <button className="w-full bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-xl py-3 text-sm font-bold shadow-lg hover:scale-105 transition-all">
+//           Upgrade to Pro
+//         </button>
+//       </div>
+//     </aside>
+//   );
+// }
+
+import { MdDashboard, MdLogout } from "react-icons/md";
 import { LuHistory } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
-import { MdLogout } from "react-icons/md";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaUsersGear } from "react-icons/fa6";
 import { PiReadCvLogoBold } from "react-icons/pi";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import api from "../../services/api";
 
-export default function Sidebar() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
+export default function Sidebar({ isOpen, setIsOpen }) {
+  const user = JSON.parse(localStorage.getItem("user")) || {};
   const role = user?.role;
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -105,107 +230,95 @@ export default function Sidebar() {
       await api.post("/logout");
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      alert("you're loggedout successfully");
       navigate("/login");
       window.location.reload();
     } catch (err) {
-      alert("you're not loggedout ", err);
       console.error(err);
     }
   };
+
+  const navItem = (to, label, icon) => {
+    const isActive = location.pathname === to;
+
+    return (
+      <Link
+        to={to}
+        onClick={() => setIsOpen(false)}
+        className={`flex items-center gap-3 pl-6 py-3 mr-4 rounded-r-full font-semibold transition-all
+        ${
+          isActive
+            ? "bg-[#5f00e3] text-white shadow-lg"
+            : "text-indigo-200 hover:bg-white/10"
+        }`}
+      >
+        {icon}
+        {label}
+      </Link>
+    );
+  };
+
   return (
-    <aside className="bg-[#1A237E] h-[calc(100vh-64px)] w-64 fixed left-0 top-16 hidden lg:flex flex-col py-6 gap-2 shadow-2xl z-40">
-      {/* Profile Info */}
-      <div className="px-6 mb-8">
-        <div className="flex items-center gap-3">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV-S-fEwogqvUeAnCKfTcGAWfGAxFXd8eWn9lFosJ3khLroZgikZov50XoKSOL-eeoH_WaTGw5RLa5kf3B5fCSe9hvQSD1xc_dzO2Rdqeks_hQYztq4Geec3x_4E6gnnnORezcVQwX3dVLW2oHF_p6ZPESYU7BhCW71tfhVcrvz5kLJQjCCVgT-ATp2FEdtKvS-yCtDBToF6dlmXaa2f4Btx1JWegq8WSOiV1WEI3DTbZtfBxexNCsU4M8iMsgJ77Q4-77VAuHzkDf"
-            alt="User Profile Picture"
-            className="w-10 h-10 rounded-full object-cover"
-          />
-          <div>
-            <div className="text-white capitalize font-headline font-semibold text-sm">
-              {user.name || "Professional Architect"}
-            </div>
-            <div className="text-indigo-300 text-xs">
-              {user.role || "Premium Tier"}
+    <>
+      {/* 🌑 Overlay (mobile only) */}
+      {isOpen && (
+        <div
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 bg-black/30 z-30 lg:hidden"
+        />
+      )}
+
+      {/* 🌙 Sidebar */}
+      <aside
+        className={`fixed top-16 left-0 h-[calc(100vh-64px)] w-64 bg-[#1A237E] z-40 flex flex-col py-6 gap-2 shadow-2xl
+        transform transition-transform duration-300
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        lg:translate-x-0`}
+      >
+        {/* Profile */}
+        <div className="px-6 mb-8">
+          <div className="flex items-center gap-3">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV-S-fEwogqvUeAnCKfTcGAWfGAxFXd8eWn9lFosJ3khLroZgikZov50XoKSOL-eeoH_WaTGw5RLa5kf3B5fCSe9hvQSD1xc_dzO2Rdqeks_hQYztq4Geec3x_4E6gnnnORezcVQwX3dVLW2oHF_p6ZPESYU7BhCW71tfhVcrvz5kLJQjCCVgT-ATp2FEdtKvS-yCtDBToF6dlmXaa2f4Btx1JWegq8WSOiV1WEI3DTbZtfBxexNCsU4M8iMsgJ77Q4-77VAuHzkDf"
+              alt="profile"
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <div>
+              <div className="text-white text-sm font-semibold capitalize">
+                {user.name || "Professional Architect"}
+              </div>
+              <div className="text-indigo-300 text-xs">
+                {user.role || "Premium Tier"}
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation Links */}
-      <nav className="flex flex-col gap-1">
-        <Link
-          to="/dashboard"
-          className="bg-[#5f00e3] text-white rounded-r-full mr-4 ml-0 pl-6 py-3 shadow-[0_0_20px_rgba(95,0,227,0.4)] flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
-        >
-          <span className="material-symbols-outlined">
-            <MdDashboard />
-          </span>
-          Dashboard
-        </Link>
-        {role === "Admin" && (
-          <Link
-            to="/usermanag"
-            className={`text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out  ${
-              location.path === "/usermanag"
-                ? "text-brand-primary bg-brand-primary/10"
-                : "text-slate-500 hover:bg-slate-50"
-            } `}
+        {/* Nav */}
+        <nav className="flex flex-col gap-1">
+          {navItem("/dashboard", "Dashboard", <MdDashboard />)}
+
+          {role === "Admin" && navItem("/usermanag", "Users", <FaUsersGear />)}
+
+          {navItem("/working", "My Resumes", <PiReadCvLogoBold />)}
+          {navItem("/working", "History", <LuHistory />)}
+          {navItem("/profile", "Profile", <FaUser />)}
+
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 pl-6 py-3 text-indigo-200 hover:bg-white/10 mr-4 rounded-r-full"
           >
-            <span className="material-symbols-outlined">
-              <FaUsersGear />
-            </span>
-            Users
-          </Link>
-        )}
-
-        <Link
-          to="/myresume"
-          className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
-        >
-          <span className="material-symbols-outlined">
-            <PiReadCvLogoBold />
-          </span>
-          My Resumes
-        </Link>
-
-        <Link
-          to="/working"
-          className=" text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
-        >
-          <span className="material-symbols-outlined">
-            <LuHistory />
-          </span>
-          History
-        </Link>
-        <Link
-          to="/profile"
-          className="text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
-        >
-          <span className="material-symbols-outlined">
-            <FaUser />
-          </span>
-          Profile
-        </Link>
-        <button
-          onClick={handleLogout}
-          className="text-white rounded-r-full mr-4 ml-0 pl-6 py-3 flex items-center gap-3 font-['Plus_Jakarta_Sans'] font-semibold transition-all duration-300 ease-in-out"
-        >
-          <span className="material-symbols-outlined">
             <MdLogout />
-          </span>
-          Logout
-        </button>
-      </nav>
+            Logout
+          </button>
+        </nav>
 
-      {/* Upgrade Button */}
-      <div className="mt-auto px-4">
-        <button className="w-full bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-xl py-3 text-sm font-bold shadow-lg hover:scale-105 transition-all">
-          Upgrade to Pro
-        </button>
-      </div>
-    </aside>
+        {/* Upgrade */}
+        <div className="mt-auto px-4">
+          <button className="w-full bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-xl py-3 text-sm font-bold shadow-lg hover:scale-105 transition-all">
+            Upgrade to Pro
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

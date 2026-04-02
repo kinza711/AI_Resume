@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MdVerified,
   MdAutoAwesome,
@@ -8,27 +8,33 @@ import {
 } from "react-icons/md";
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
-export default function MaintenancePage() {
+export default function MaintenancePage({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <div className="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+    <div className="bg-surface font-body text-on-surface min-h-screen flex flex-col overflow-hidden">
       {/* Main Content */}
-      <Navbar />
-      <main className="flex-grow flex flex-col items-center justify-center pt-24 pb-12 px-6">
-        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <Navbar setIsSidebarOpen={setIsSidebarOpen} />
+      <main className="flex-grow flex flex-col items-center justify-center pt-20 md:pt-24 pb-10 md:pb-12 px-4 sm:px-6">
+        <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Content */}
           <div className="lg:col-span-6 flex flex-col space-y-8">
             <div className="space-y-4">
-              <div className="inline-flex animate-pulse items-center px-4 py-1.5 rounded-full bg-[#E0E0FF] text-on-primary-fixed font-label text-xs font-bold tracking-wider uppercase">
+              <div className="inline-flex text-purple-800 animate-pulse items-center px-4 py-1.5 rounded-full bg-[#E0E0FF] text-on-primary-fixed font-label text-xs font-bold tracking-wider uppercase">
                 Coming Back Soon
               </div>
-              <h1 className="font-headline font-extrabold text-5xl md:text-6xl lg:text-7xl text-primary leading-[1.1] -tracking-[0.03em]">
+              <h1
+                className="font-headline font-extrabold 
+text-4xl sm:text-5xl md:text-6xl lg:text-7xl 
+text-primary leading-[1.1] -tracking-[0.03em]"
+              >
                 We're{" "}
                 <span className="text-transparent bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 bg-clip-text aspirations-gradient">
                   Building
                 </span>{" "}
                 Your Career Future.
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 max-w-xl leading-relaxed font-medium">
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-lg md:max-w-xl leading-relaxed font-medium">
                 Our AI engine is undergoing a scheduled upgrade to serve you
                 better. We'll be back online shortly with a brand new way to
                 engineer your trajectory.
@@ -37,14 +43,14 @@ export default function MaintenancePage() {
 
             {/* Notify Me Form */}
             <div className="w-full max-w-lg">
-              <form className="relative flex p-1.5 rounded-full bg-[#E6E8EA] focus-within:bg-surface-container-lowest transition-all duration-300">
+              <form className="relative flex flex-col sm:flex-row gap-3 sm:gap-0 p-1.5 rounded-2xl sm:rounded-full bg-[#E6E8EA] focus-within:bg-surface-container-lowest transition-all duration-300">
                 <input
                   type="email"
                   placeholder="Enter your email for early access"
-                  className="flex-grow bg-transparent  px-6 py-3 text-on-surface font-medium placeholder:text-slate-400"
+                  className="flex-grow bg-transparent px-5 py-3 text-on-surface font-medium placeholder:text-slate-400 outline-none"
                 />
                 <button
-                  className="bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 text-white px-8 py-3 rounded-full font-label font-bold text-sm hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-secondary/30"
+                  className="bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 text-white px-6 sm:px-8 py-3 rounded-xl sm:rounded-full font-bold text-sm hover:scale-[1.02] active:scale-95 transition-all shadow-xl"
                   type="submit"
                 >
                   Notify Me
@@ -57,7 +63,7 @@ export default function MaintenancePage() {
             </div>
 
             {/* Feature Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-6 md:pt-8">
               <FeatureCard
                 icon={<MdAutoAwesome />}
                 title="Neural Rewriting"
@@ -77,8 +83,11 @@ export default function MaintenancePage() {
           </div>
 
           {/* Right Visual Section */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative z-10 rounded-xl overflow-hidden shadow-2xl hero-glow aspect-square md:aspect-video lg:aspect-square">
+          <div className="lg:col-span-6 relative order-first lg:order-none">
+            <div
+              className="relative z-10 rounded-xl overflow-hidden shadow-2xl hero-glow 
+aspect-[4/3] sm:aspect-video lg:aspect-square"
+            >
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP1dVkOwSue-p0xU4cY9hx4BOa4aBLlxEZVaFfssvf4_d5kPijey7LM4xrE57BqSa3TMfv-jfpj3YFeiY_KYvwAMYcKUcBjlE3nYrC_GQH9MOVa8dupuCtDZM-q9Jjq_xVMJlSqvn87R5TzGPqeaOTQIze-2Nvjx7is-CC2rVCXsG17myMM2e6Aeomt8nz0pNkCHDljkMKscKXhfWQhHJpymczagsRx5uRjtUa3-TZf49TgPyKbLxnLJJIzyY8MuXg-ruW3Qtvvqyd"
                 alt="Professional Architecting Future"
@@ -86,8 +95,8 @@ export default function MaintenancePage() {
               />
 
               {/* Glass Panel Overlay */}
-              <div className="absolute bottom-8 left-8 right-8 glass-panel p-6 rounded-lg border border-white/20">
-                <div className="flex items-center gap-4">
+              <div className="absolute bottom-4 bg-purple-200/40 sm:bottom-6 md:bottom-8 left-4 sm:left-6 md:left-8 right-4 sm:right-6 md:right-8 glass-panel p-4 sm:p-5 md:p-6 rounded-lg border border-white/20">
+                <div className="flex items-center gap-4 ">
                   <div className="w-12 h-12 rounded-full bg-[#5F00E3] flex items-center justify-center">
                     <MdArchitecture className="text-white" />
                   </div>

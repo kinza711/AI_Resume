@@ -5,12 +5,15 @@ import {
 } from "react-icons/fa";
 import Footer from "../components/partials/Footer";
 import Navbar from "../components/partials/Navbar";
+import { useState } from "react";
 
-export default function NotFound() {
+export default function NotFound({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <div className="min-h-screen flex flex-col bg-[#f7f9fb] text-[#191c1e]">
+    <div className="min-h-screen flex flex-col overflow-hidden bg-[#f7f9fb] text-[#191c1e]">
       {/* NAVBAR */}
-      <Navbar />
+      <Navbar setIsSidebarOpen={setIsSidebarOpen} />
 
       {/* MAIN */}
       <main className="flex-grow flex items-center justify-center pt-24 pb-12 px-6 relative">
@@ -18,11 +21,11 @@ export default function NotFound() {
         <div className="absolute top-1/4 -left-20 w-64 h-64 bg-purple-200 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-pink-200 rounded-full blur-3xl"></div>
 
-        <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="max-w-6xl overf w-full grid md:grid-cols-2 gap-12 items-center relative z-10">
           {/* IMAGE SIDE */}
           <div className="order-2 md:order-1 flex justify-center">
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-purple-600 to-pink-500 opacity-20 blur-2xl rounded-full"></div>
+            <div className="relative group over">
+              <div className="absolute -inset-4  bg-gradient-to-r from-purple-600 to-pink-500 opacity-20 blur-2xl rounded-full"></div>
 
               <div className="bg-white/70 backdrop-blur-xl p-6 rounded-xl shadow-2xl relative">
                 <img
