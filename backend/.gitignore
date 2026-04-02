@@ -21,6 +21,8 @@ pdfparse
 parseRoutes.js
 files
 *.pdf
+testDocs.cjs
+testParsing.cjs
 
 #-------------Trash parsing files----------
 

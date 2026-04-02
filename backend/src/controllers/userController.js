@@ -2,7 +2,7 @@ import AIUser from "../Models/UserModel.js";
 
 export const GetUsers = async (req, res) => {
   try {
-    const allusers = await AIUser.find();
+    const allusers = await AIUser.find({ role: "user" });
     res.status(200).json({
       mesasge: "all users found successfully",
       data: allusers,
