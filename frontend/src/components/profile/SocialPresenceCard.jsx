@@ -1,7 +1,7 @@
 import { IoLink } from "react-icons/io5";
 import { MdOutlinePublic } from "react-icons/md";
 
-export default function SocialPresenceCard() {
+export default function SocialPresenceCard({ handleChange, formData }) {
   return (
     <section className="bg-[#f2f4f6] rounded-lg p-8">
       <h2 className="text-xl font-headline font-bold text-[#000666] mb-6">
@@ -18,8 +18,29 @@ export default function SocialPresenceCard() {
             </span>
             <input
               className="bg-transparent border-none p-0 text-sm font-medium w-full focus:ring-0"
-              type="text"
-              value="linkedin.com/in/alexcarter"
+              type="url"
+              name="linkedIn"
+              value={formData?.linkedIn}
+              onChange={handleChange}
+              placeholder="https://linkedin.com"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-[10px] font-extrabold text-[#454652] uppercase tracking-[0.2em] ml-1">
+            GitHub URL
+          </label>
+          <div className="flex items-center gap-3 p-3 bg-[#ffffff] rounded-xl shadow-sm">
+            <span className="material-symbols-outlined text-[#0077b5]">
+              <IoLink />
+            </span>
+            <input
+              className="bg-transparent border-none p-0 text-sm font-medium w-full focus:ring-0"
+              type="url"
+              name="github"
+              value={formData?.github}
+              onChange={handleChange}
+              placeholder="https://github.com"
             />
           </div>
         </div>
@@ -33,8 +54,11 @@ export default function SocialPresenceCard() {
             </span>
             <input
               className="bg-transparent border-none p-0 text-sm font-medium w-full focus:ring-0"
-              type="text"
-              value="alexcarter.design"
+              type="url"
+              name="portfolio"
+              value={formData?.portfolio}
+              onChange={handleChange}
+              placeholder="https://portfolio.com"
             />
           </div>
         </div>

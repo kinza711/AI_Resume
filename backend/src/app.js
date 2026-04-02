@@ -6,8 +6,8 @@ import userRoutes from "./Routes/userRoutes.js";
 import resuemRoutes from "./Routes/resumeRoutes.js";
 import profileRoutes from "./Routes/profileRoutes.js";
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // cors setup
 const allowedOrigin =

@@ -1,6 +1,6 @@
 import { MdBadge } from "react-icons/md";
 
-export default function PersonalInfoCard() {
+export default function PersonalInfoCard({ formData, handleChange }) {
   return (
     <section className="bg-white/70 backdrop-blur-[20px] rounded-lg p-8 shadow-sm">
       <div className="flex items-center justify-between mb-8">
@@ -17,19 +17,25 @@ export default function PersonalInfoCard() {
             First Name
           </label>
           <input
-            className="w-full bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
+            className="w-full placeholder:text-gray-400  bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
             type="text"
-            value="Alex"
+            name="name"
+            value={formData?.name}
+            onChange={handleChange}
+            placeholder="Name"
           />
         </div>
         <div className="space-y-2">
           <label className="text-xs font-bold text-[#454652] uppercase tracking-widest ml-1">
-            Last Name
+            Professional Heading
           </label>
           <input
-            className="w-full bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
+            className="w-full placeholder:text-gray-400 bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
             type="text"
-            value="Carter"
+            name="heading"
+            value={formData?.heading}
+            onChange={handleChange}
+            placeholder="UI/UX Design"
           />
         </div>
         <div className="space-y-2">
@@ -37,9 +43,12 @@ export default function PersonalInfoCard() {
             Email Address
           </label>
           <input
-            className="w-full bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
+            className="w-full placeholder:text-gray-400 bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
             type="email"
-            value="alex.carter@design.io"
+            name="email"
+            value={formData?.email}
+            onChange={handleChange}
+            placeholder="example@gmail.com"
           />
         </div>
         <div className="space-y-2">
@@ -47,9 +56,12 @@ export default function PersonalInfoCard() {
             Phone Number
           </label>
           <input
-            className="w-full bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
+            className="w-full placeholder:text-gray-400 bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
             type="tel"
-            value="+1 (555) 000-1234"
+            name="phone"
+            value={formData?.phone}
+            onChange={handleChange}
+            placeholder="+920876554444"
           />
         </div>
         <div className="space-y-2 md:col-span-2">
@@ -58,9 +70,12 @@ export default function PersonalInfoCard() {
           </label>
           <div className="relative">
             <input
-              className="w-full bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
+              className="w-full placeholder:text-gray-400 bg-[#e6e8ea] border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#5f00e3] focus:bg-white transition-all font-medium text-[#191c1e]"
               type="text"
-              value="San Francisco, CA"
+              name="location"
+              value={formData?.location}
+              onChange={handleChange}
+              placeholder="Lahore , punjab , pakistan"
             />
           </div>
         </div>

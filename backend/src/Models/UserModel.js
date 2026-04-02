@@ -11,6 +11,12 @@ const userSchema = new mongoose.Schema(
     //subscriptionExpires: { type: Date },
     role: { type: String, default: "user" },
     phone: { type: String },
+    location: { type: String },
+    summery: { type: String },
+    portfolio: { type: String },
+    website: { type: String },
+    linkedIn: { type: String },
+    github: { type: String },
     //resumeHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "Resume" }],
     //lastLogin: { type: Date },
     //usageStats: {

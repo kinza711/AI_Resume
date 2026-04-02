@@ -6,8 +6,76 @@ import SocialPresenceCard from "../components/profile/SocialPresenceCard";
 import ProfileStrengthCard from "../components/profile/ProfileStrengthCard";
 import { IoIosSave } from "react-icons/io";
 import { HiMiniCheckBadge } from "react-icons/hi2";
+import api from "../services/api";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Profile() {
+  const [profile, setProfile] = useState(null);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  //const role = user?.role;
+
+  const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    if (profile) {
+      setFormData({
+        name: profile.name || "",
+        email: profile.email || "",
+        phone: profile.phone || "",
+        location: profile.location || "",
+        summery: profile.summery || "",
+        heading: profile.heading || "",
+        linkedIn: profile.linkedIn || "",
+        github: profile.github || "",
+        portfolio: profile.portfolio || "",
+        role: profile.role || "user",
+      });
+    }
+  }, [profile]);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await api.get(`/profile`);
+        setProfile(res.data.user);
+        //console.log(res, "profile fetched");
+      } catch (err) {
+        // alert(err, "profile not fetched");
+        console.error(err, "profile not found");
+      }
+    };
+    fetchProfile();
+  }, [id]);
+
+  //update profile info
+
+  const handleUpdateProfile = async () => {
+    try {
+      const res = await api.put("/profile/update", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setProfile(res.data.user);
+      alert("Profile updated successfully");
+    } catch (err) {
+      console.error("Update Error:", err);
+      alert("Profile not updated");
+    }
+  };
+
   return (
     <div className="bg-[#f7f9fb] font-body text-[#191c1e] min-h-screen">
       <Header />
@@ -43,15 +111,32 @@ export default function Profile() {
           {/* Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-8 space-y-8">
-              <PersonalInfoCard />
-              <ProfessionalSummaryCard />
+              <PersonalInfoCard
+                //profile={profile}
+                formData={formData}
+                //updateProfile={handleUpdateProfile}
+                handleChange={handleChange}
+              />
+              <ProfessionalSummaryCard
+                formData={formData}
+                // updateProfile={handleUpdateProfile}
+                handleChange={handleChange}
+              />
             </div>
             <div className="lg:col-span-4 space-y-8">
-              <SocialPresenceCard />
+              <SocialPresenceCard
+                formData={formData}
+                //updateProfile={handleUpdateProfile}
+                handleChange={handleChange}
+              />
+
               <ProfileStrengthCard />
-              {/* Action Buttons */}
+              {/* //Action Buttons */}
               <div className="pt-4 sticky top-24">
-                <button className="w-full bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-full py-4 font-headline font-extrabold text-lg shadow-xl transition-all flex items-center justify-center gap-3 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,255,255,0.3)]">
+                <button
+                  onClick={handleUpdateProfile}
+                  className="w-full bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-full py-4 font-headline font-extrabold text-lg shadow-xl transition-all flex items-center justify-center gap-3 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,255,255,0.3)]"
+                >
                   <span className="material-symbols-outlined">
                     <IoIosSave />
                   </span>
