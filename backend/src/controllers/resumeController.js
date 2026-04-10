@@ -47,7 +47,7 @@ export const UploadResume = async (req, res) => {
       jobRole,
       originalText,
       improvedText,
-      improvedData: structuredData, // 🔥 NEW
+      improvedData: structuredData,
       status: "completed",
     });
     res.status(200).json({
@@ -55,7 +55,7 @@ export const UploadResume = async (req, res) => {
       data: uplaodresume,
     });
   } catch (err) {
-    console.log("FULL ERROR:", err); // yeh add karo
+    console.log("resume not uploaded:", err);
     res.status(500).json({
       message: "resuem not uploaded",
       error: err.message,

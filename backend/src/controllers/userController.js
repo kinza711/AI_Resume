@@ -9,6 +9,10 @@ export const GetUsers = async (req, res) => {
     });
   } catch (err) {
     console.error(err, "user not found");
+    res.status(500).json({
+      mesasge: "server error user not found",
+      error: err.message,
+    });
   }
 };
 
@@ -23,6 +27,10 @@ export const DeleteUser = async (req, res) => {
     });
   } catch (err) {
     console.error(err, "user not deleted");
+    res.status(500).json({
+      mesasge: "server error user not delete",
+      error: err.message,
+    });
   }
 };
 
@@ -39,6 +47,10 @@ export const UpdateUser = async (req, res) => {
     });
   } catch (err) {
     console.error(err, "user not updated");
+    res.status(500).json({
+      mesasge: "server error user not updated",
+      error: err.message,
+    });
   }
 };
 
@@ -55,7 +67,7 @@ export const EditUsers = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       message: "users not found",
-      error: err,
+      error: err.message,
     });
   }
 };

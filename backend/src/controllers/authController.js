@@ -2,7 +2,6 @@ import AIUser from "../Models/UserModel.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
 
-
 // register users
 
 export const Register = async (req, res) => {
@@ -38,6 +37,7 @@ export const Register = async (req, res) => {
     console.log(err, "user not registered");
     res.status(500).json({
       message: "Server error",
+      error: err.message,
     });
   }
 };
@@ -96,9 +96,10 @@ export const Login = async (req, res) => {
     });
     console.log(user);
   } catch (err) {
+    console.error(err, "login issue");
     res.status(500).json({
       message: "user not loggedin",
-      error: err,
+      error: err.message,
     });
   }
 };
@@ -109,5 +110,9 @@ export const Logout = async (req, res) => {
     res.status(200).json("Logout Successfully");
   } catch (err) {
     console.error(err, "user not logout");
+    res.status(500).json({
+      message: "user not logout",
+      error: err.message,
+    });
   }
 };
