@@ -4,6 +4,8 @@ import { FaUser } from "react-icons/fa";
 import { FaUsersGear } from "react-icons/fa6";
 import { PiReadCvLogoBold } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { SlEnvolopeLetter } from "react-icons/sl";
+import { VscRobot } from "react-icons/vsc";
 import api from "../../services/api";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
@@ -88,8 +90,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           {role === "Admin" && navItem("/usermanag", "Users", <FaUsersGear />)}
 
           {navItem("/working", "My Resumes", <PiReadCvLogoBold />)}
-          {navItem("/cover", "Cover Latter", <LuHistory />)}
-          {navItem("/interview", "Interview", <LuHistory />)}
+          {navItem("/cover", "Cover Latter", <SlEnvolopeLetter />)}
+          {navItem("/interview", "Interview", <VscRobot />)}
           {navItem("/working", "History", <LuHistory />)}
           {navItem("/profile", "Profile", <FaUser />)}
 

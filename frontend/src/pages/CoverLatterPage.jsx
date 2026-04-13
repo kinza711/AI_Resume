@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/Sidebar";
 import GeneratorForm from "../components/coverlatter/GeneratorForm";
 import PreviewSection from "../components/coverlatter/PreviewSection";
 
-export default function CoverLetterPage() {
+export default function CoverLetterPage({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  JSON.parse(localStorage.getItem("user"));
+  const [covertext, setCoverText] = useState("");
+
   return (
     <div className="bg-[#f7f9fb] text-[#191c1e] min-h-screen">
-      <Header />
-      <Sidebar />
+      <Header setIsSidebarOpen={setIsSidebarOpen} />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
 
       <main className="lg:pl-72 pt-24 px-4 sm:px-6 lg:px-10 pb-20">
         <div className="max-w-5xl mx-auto">
@@ -23,8 +31,8 @@ export default function CoverLetterPage() {
             </p>
           </div>
 
-          <GeneratorForm />
-          <PreviewSection />
+          <GeneratorForm setCoverText={setCoverText} />
+          <PreviewSection covertext={covertext} />
         </div>
       </main>
     </div>

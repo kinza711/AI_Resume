@@ -1,29 +1,123 @@
+// import React, { useState } from "react";
+// import { LuFileUp } from "react-icons/lu";
+// import { BsStars } from "react-icons/bs";
+// import api from "../../services/api";
+
+// export default function GeneratorForm() {
+//   const [resume, setResume] = useState(null);
+//   const [jobDesc, setJobDesc] = useState("");
+//   const [tone, setTone] = useState("professional");
+//   const [loading, setLoading] = useState(false);
+//   const [coverLetter, setCoverLetter] = useState("");
+//   const [error, setError] = useState("");
+
+//   const generateCoverLetter = async () => {
+//     try {
+//       setLoading(true);
+//       setError("");
+
+//       const res = await api.post("/api/cover-letter", {
+//         resume,
+//         jobDesc,
+//         tone,
+//       });
+
+//       setCoverLetter(res.data.coverLetter);
+//     } catch (err) {
+//       console.error(err);
+//       setError("Failed to generate cover letter");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   return (
+//     <div className="space-y-8">
+//       {/* Inputs */}
+//       <div className="grid md:grid-cols-2 gap-6">
+//         {/* Upload */}
+//         <div className="bg-white p-6 rounded-3xl shadow">
+//           <h3 className="font-bold text-[#000666] mb-4">Your Experience</h3>
+//           <div className="border-2 border-dashed border-[#c6c5d4] p-10 text-center flex flex-col items-center justify-center rounded-3xl">
+//             <LuFileUp size={40} />
+//             <div className="text text-center justify-center">
+//               Drag and drop your CV here or{" "}
+//               <span className="text-[#5f00e3] font-bold">browse files</span>{" "}
+//               <br />
+//               <span className="text-xs text-gray-600">
+//                 PDF, DOCX up to 10MB
+//               </span>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Job Desc */}
+//         <div className="bg-white p-6 rounded-3xl shadow">
+//           <h3 className="font-bold text-[#000666] mb-4">Job Description</h3>
+//           <textarea
+//             className="w-full h-[150px] bg-[#e6e8ea] p-4 rounded-3xl outline-none"
+//             placeholder="Paste job description..."
+//           />
+//         </div>
+//       </div>
+
+//       {/* Tone + Button */}
+//       <div className="flex flex-col md:flex-row gap-6">
+//         <div className="flex-1 bg-white p-6 rounded-3xl shadow">
+//           <h3 className="font-bold text-[#000666] mb-4">Tone</h3>
+
+//           <div className="flex gap-3 flex-wrap">
+//             {["Professional", "Creative", "Minimal"].map((t) => (
+//               <button
+//                 key={t}
+//                 className="px-4 py-2 rounded-full bg-[#e6e8ea] text-sm"
+//               >
+//                 {t}
+//               </button>
+//             ))}
+//           </div>
+//         </div>
+
+//         <button className="md:w-1/3 bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-3xl font-bold text-lg py-4 px-6 flex items-center justify-center gap-2 hover:scale-105 transition-all duration-200 shadow-lg">
+//           <BsStars className="text-xl" />
+//           <span>Generate Now</span>
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
 import React, { useState } from "react";
 import { LuFileUp } from "react-icons/lu";
 import { BsStars } from "react-icons/bs";
 import api from "../../services/api";
 
-export default function GeneratorForm() {
-  const [resume, setResume] = useState(null);
+export default function GeneratorForm({ setCoverText }) {
   const [jobDesc, setJobDesc] = useState("");
   const [tone, setTone] = useState("professional");
   const [loading, setLoading] = useState(false);
   const [coverLetter, setCoverLetter] = useState("");
   const [error, setError] = useState("");
 
-  const generateCoverLetter = async () => {
+  // 🔹 API CALL
+  const handleUpload = async () => {
     try {
       setLoading(true);
       setError("");
+      setCoverLetter("");
 
-      const res = await api.post("/api/cover-letter", {
-        resume,
+      const res = await api.post("/cover", {
         jobDesc,
         tone,
       });
 
-      setCoverLetter(res.data.coverLetter);
+      const parsed = res.data.data.coverText;
+      setCoverText(res.data.data.coverText); // 👈 IMPORTANT
+      //setJobRole(parsed);
+      alert(res.data.message);
+      console.log(res, parsed);
     } catch (err) {
+      alert(err);
       console.error(err);
       setError("Failed to generate cover letter");
     } finally {
@@ -35,14 +129,14 @@ export default function GeneratorForm() {
     <div className="space-y-8">
       {/* Inputs */}
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Upload */}
+        {/* Upload (UI only for now) */}
         <div className="bg-white p-6 rounded-3xl shadow">
           <h3 className="font-bold text-[#000666] mb-4">Your Experience</h3>
           <div className="border-2 border-dashed border-[#c6c5d4] p-10 text-center flex flex-col items-center justify-center rounded-3xl">
             <LuFileUp size={40} />
-            <div className="text text-center justify-center">
+            <div className="text-center">
               Drag and drop your CV here or{" "}
-              <span className="text-[#5f00e3] font-bold">browse files</span>{" "}
+              <span className="text-[#5f00e3] font-bold">browse files</span>
               <br />
               <span className="text-xs text-gray-600">
                 PDF, DOCX up to 10MB
@@ -51,10 +145,12 @@ export default function GeneratorForm() {
           </div>
         </div>
 
-        {/* Job Desc */}
+        {/* Job Description */}
         <div className="bg-white p-6 rounded-3xl shadow">
           <h3 className="font-bold text-[#000666] mb-4">Job Description</h3>
           <textarea
+            value={jobDesc}
+            onChange={(e) => setJobDesc(e.target.value)}
             className="w-full h-[150px] bg-[#e6e8ea] p-4 rounded-3xl outline-none"
             placeholder="Paste job description..."
           />
@@ -63,14 +159,17 @@ export default function GeneratorForm() {
 
       {/* Tone + Button */}
       <div className="flex flex-col md:flex-row gap-6">
+        {/* Tone */}
         <div className="flex-1 bg-white p-6 rounded-3xl shadow">
           <h3 className="font-bold text-[#000666] mb-4">Tone</h3>
 
           <div className="flex gap-3 flex-wrap">
-            {["Professional", "Creative", "Minimal"].map((t) => (
+            {["professional", "creative", "minimal"].map((t) => (
               <button
                 key={t}
-                className="px-4 py-2 rounded-full bg-[#e6e8ea] text-sm"
+                onClick={() => setTone(t)}
+                className={`px-4 py-2 rounded-full text-sm transition 
+                ${tone === t ? "bg-[#000666] text-white" : "bg-[#e6e8ea]"}`}
               >
                 {t}
               </button>
@@ -78,11 +177,35 @@ export default function GeneratorForm() {
           </div>
         </div>
 
-        <button className="md:w-1/3 bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-3xl font-bold text-lg py-4 px-6 flex items-center justify-center gap-2 hover:scale-105 transition-all duration-200 shadow-lg">
+        {/* Generate Button */}
+        <button
+          onClick={handleUpload}
+          className="md:w-1/3 bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-3xl font-bold text-lg py-4 px-6 flex items-center justify-center gap-2 hover:scale-105 transition-all duration-200 shadow-lg"
+        >
           <BsStars className="text-xl" />
-          <span>Generate Now</span>
+          <span>{loading ? "Generating..." : "Generate Now"}</span>
         </button>
       </div>
+
+      {/* Error */}
+      {error && <p className="text-red-500 font-medium">{error}</p>}
+
+      {/* Result */}
+      {coverLetter && (
+        <div className="bg-white p-6 rounded-3xl shadow space-y-4">
+          <h3 className="font-bold text-[#000666]">Generated Cover Letter</h3>
+
+          <p className="whitespace-pre-line text-gray-700">{coverLetter}</p>
+
+          {/* Copy Button */}
+          <button
+            onClick={() => navigator.clipboard.writeText(coverLetter)}
+            className="px-4 py-2 bg-[#000666] text-white rounded-full text-sm"
+          >
+            Copy
+          </button>
+        </div>
+      )}
     </div>
   );
 }

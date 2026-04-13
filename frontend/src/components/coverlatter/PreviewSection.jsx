@@ -1,7 +1,7 @@
 import React from "react";
 import { MdAutoAwesome, MdDownload, MdContentCopy } from "react-icons/md";
 
-export default function PreviewSection() {
+export default function PreviewSection({ covertext }) {
   return (
     <section className="w-full mt-10">
       <div className="relative">
@@ -10,10 +10,8 @@ export default function PreviewSection() {
 
         {/* Card */}
         <div className="relative bg-[#ffffff] rounded-xl overflow-hidden border border-white/50 shadow-2xl">
-          
           {/* Header */}
           <div className="px-6 sm:px-8 py-4 bg-[#f2f4f6] border-b border-[#c6c5d4]/30 flex justify-between items-center flex-wrap gap-3">
-            
             {/* Dots */}
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-[#ba1a1a]/20"></span>
@@ -37,14 +35,14 @@ export default function PreviewSection() {
 
           {/* Content */}
           <div className="p-6 sm:p-8 md:p-12 min-h-[500px] text-[#191c1e] leading-relaxed space-y-6">
-            
             {/* Header Info */}
             <div className="space-y-1 mb-6">
               <h4 className="text-xl font-bold text-[#000666]">
-                Alex Rivera
+                {covertext?.name || "Alex Rivera"}
               </h4>
               <p className="text-sm text-[#454652] font-medium">
-                San Francisco, CA | a.rivera@email.com
+                {covertext?.location || "San Francisco, CA"} |{" "}
+                {covertext?.email || "Alex@email.com"}
               </p>
             </div>
 
@@ -53,15 +51,22 @@ export default function PreviewSection() {
               <p className="text-sm text-[#454652] font-bold">
                 To: Hiring Manager
               </p>
-              <p className="text-sm text-[#454652]">
-                FutureScale Tech Corp.
-              </p>
+              <p className="text-sm text-[#454652]">FutureScale Tech Corp.</p>
             </div>
 
             {/* Body */}
-            <p className="text-sm font-medium">
-              Dear Hiring Manager,
-            </p>
+            <p className="text-sm font-medium">Dear Hiring Manager,</p>
+
+            {/* <div className="space-y-4">
+              {covertext?.coverlatter?.split("\n\n").map((para, i) => (
+                <div
+                  key={i}
+                  className="bg-white p-4 rounded-xl border shadow-sm"
+                >
+                  <p className="text-sm leading-relaxed">{para}</p>
+                </div>
+              ))}
+            </div> */}
 
             <p className="text-sm font-medium">
               I am writing to express my enthusiastic interest in the Senior
@@ -107,7 +112,6 @@ export default function PreviewSection() {
 
       {/* Bottom Chips */}
       <div className="mt-6 flex flex-wrap justify-center gap-3">
-        
         <div className="rounded-full bg-[#e0e0ff] px-4 py-2 flex items-center gap-2 animate-pulse">
           <MdAutoAwesome className="text-xs text-[#000767]" />
           <span className="text-[10px] font-bold text-[#000767]">

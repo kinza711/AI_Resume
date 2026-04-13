@@ -48,7 +48,7 @@ export default function Dashboard({ children }) {
           </div>
         </main>
       </div>
-      <Footer />
+      {!user && <Footer />}
     </>
   );
 }
