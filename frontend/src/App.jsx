@@ -13,6 +13,9 @@ import EditUser from "./pages/EditUser";
 import AdminLogin from "./pages/AdminLogin";
 import ResuemPage from "./pages/ResuemPage";
 import ProtectedRoute from "./utils/protected";
+import CoverLetterPage from "./pages/CoverLatterPage";
+import InterviewPage from "./pages/InterviewPage";
+import InterviewSessionPage from "./pages/InterviewSessionPage";
 
 const App = () => {
   return (
@@ -57,6 +60,33 @@ const App = () => {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/cover"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "user"]}>
+                <CoverLetterPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/interview"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "user"]}>
+                <InterviewPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/live"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "user"]}>
+                <InterviewSessionPage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route path="/404" element={<F404Page />} />
           <Route path="/working" element={<WorkingPage />} />
           <Route path="/airesume" element={<ResuemPage />} />

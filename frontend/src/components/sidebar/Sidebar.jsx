@@ -1,5 +1,3 @@
-
-
 import { MdDashboard, MdLogout } from "react-icons/md";
 import { LuHistory } from "react-icons/lu";
 import { FaUser } from "react-icons/fa";
@@ -90,6 +88,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           {role === "Admin" && navItem("/usermanag", "Users", <FaUsersGear />)}
 
           {navItem("/working", "My Resumes", <PiReadCvLogoBold />)}
+          {navItem("/cover", "Cover Latter", <LuHistory />)}
+          {navItem("/interview", "Interview", <LuHistory />)}
           {navItem("/working", "History", <LuHistory />)}
           {navItem("/profile", "Profile", <FaUser />)}
 
