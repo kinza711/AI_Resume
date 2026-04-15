@@ -89,10 +89,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
           {role === "Admin" && navItem("/usermanag", "Users", <FaUsersGear />)}
 
-          {navItem("/working", "My Resumes", <PiReadCvLogoBold />)}
+          {/* {navItem("/working", "My Resumes", <PiReadCvLogoBold />)} */}
           {navItem("/cover", "Cover Latter", <SlEnvolopeLetter />)}
           {navItem("/interview", "Interview", <VscRobot />)}
-          {navItem("/working", "History", <LuHistory />)}
+          {/* {navItem("/working", "History", <LuHistory />)} */}
           {navItem("/profile", "Profile", <FaUser />)}
 
           <button

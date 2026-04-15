@@ -1,7 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdAutoAwesome, MdDownload, MdContentCopy } from "react-icons/md";
+import UpgradePro from "../popups/UpgradePro";
 
 export default function PreviewSection({ covertext }) {
+  const [coped, setCoped] = useState("");
+  const [open, setOpen] = useState(false);
+  const data = covertext?.cover_letter;
+
+  const formattedText = `
+${data?.header?.full_name}
+${data?.header?.email}
+
+${data?.header?.date.now}
+
+${data?.recipient?.company}
+${data?.recipient?.candidate_role}
+
+${data?.greeting}
+
+${data?.introduction}
+
+${data?.body?.paragraph_1}
+
+${data?.body?.paragraph_2}
+
+${data?.body?.paragraph_3}
+
+${data?.closing_paragraph}
+
+${data?.closing}
+
+${data?.signature?.name}
+`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(formattedText);
+    setCoped(true, "Copied");
+    setTimeout(() => {
+      setCoped(false);
+    }, 2500); // disappears after 2.5s
+  };
+
   return (
     <section className="w-full mt-10">
       <div className="relative">
@@ -21,14 +60,27 @@ export default function PreviewSection({ covertext }) {
 
             {/* Actions */}
             <div className="flex gap-4">
-              <button className="flex items-center gap-1 text-xs font-bold text-[#454652] hover:text-[#5f00e3] transition">
+              <button
+                onClick={() => setOpen(true)}
+                className="flex items-center gap-1 text-xs font-bold text-[#454652] hover:text-[#5f00e3] transition"
+              >
                 <MdDownload className="text-sm" />
                 Export PDF
               </button>
+              {/* MODAL */}
+              {open && <UpgradePro onClose={() => setOpen(false)} />}
 
-              <button className="flex items-center gap-1 text-xs font-bold text-[#454652] hover:text-[#5f00e3] transition">
+              <button
+                onClick={handleCopy}
+                className="flex items-center gap-1 text-xs font-bold text-[#454652] hover:text-[#5f00e3] transition"
+              >
                 <MdContentCopy className="text-sm" />
-                Copy
+                {/* Copy{" "} */}
+                {coped ? (
+                  <span className="text-green-600 animate-pulse">Copied ✓</span>
+                ) : (
+                  "Copy"
+                )}
               </button>
             </div>
           </div>
@@ -38,47 +90,40 @@ export default function PreviewSection({ covertext }) {
             {/* Header Info */}
             <div className="space-y-1 mb-6">
               <h4 className="text-xl font-bold text-[#000666]">
-                {covertext?.name || "Alex Rivera"}
+                {data?.header?.full_name || "Alex Rivera"}
               </h4>
               <p className="text-sm text-[#454652] font-medium">
-                {covertext?.location || "San Francisco, CA"} |{" "}
-                {covertext?.email || "Alex@email.com"}
+                {data?.recipient?.candidate_role || "San Francisco, CA"} |{" "}
+                {data?.header?.email || "Alex@email.com"}
               </p>
             </div>
 
             {/* To Section */}
             <div className="space-y-1 mb-8">
               <p className="text-sm text-[#454652] font-bold">
-                To: Hiring Manager
+                To: {data?.header?.recipient || "Hiring Manager"}
               </p>
-              <p className="text-sm text-[#454652]">FutureScale Tech Corp.</p>
+              <p className="text-sm text-[#454652]">
+                {data?.recipient?.company || "FutureScale Tech Corp."}
+              </p>
             </div>
 
             {/* Body */}
-            <p className="text-sm font-medium">Dear Hiring Manager,</p>
-
-            {/* <div className="space-y-4">
-              {covertext?.coverlatter?.split("\n\n").map((para, i) => (
-                <div
-                  key={i}
-                  className="bg-white p-4 rounded-xl border shadow-sm"
-                >
-                  <p className="text-sm leading-relaxed">{para}</p>
-                </div>
-              ))}
-            </div> */}
 
             <p className="text-sm font-medium">
-              I am writing to express my enthusiastic interest in the Senior
-              Product Designer position at FutureScale Tech Corp. I admire your
-              commitment to user-centric innovation.
+              {data?.greeting || "Dear Hiring Manager,"}
             </p>
 
             <p className="text-sm font-medium">
-              In my recent role, I led a redesign that increased retention by
-              40%. My approach blends data with storytelling to create impactful
-              user experiences.
+              {data?.introduction ||
+                `I am writing to express my enthusiastic interest in the Senior
+        Product Designer position at FutureScale Tech Corp. I admire your
+        commitment to user-centric innovation.`}
             </p>
+
+            <p className="text-sm font-medium">{data?.body?.paragraph_1}</p>
+            <p className="text-sm font-medium">{data?.body?.paragraph_2}</p>
+            <p className="text-sm font-medium">{data?.body?.paragraph_3}</p>
 
             {/* AI Insight */}
             <div className="bg-[#e9ddff]/40 p-5 rounded-lg border border-[#cfbcff]/40">
@@ -96,15 +141,17 @@ export default function PreviewSection({ covertext }) {
             </div>
 
             <p className="text-sm font-medium">
-              I look forward to contributing to your team’s success.
+              {data?.closing_paragraph ||
+                "I look forward to contributing to your team’s success."}
             </p>
 
             {/* Footer */}
             <div className="pt-6">
               <p className="text-sm font-medium">Best Regards,</p>
               <p className="text-lg font-bold text-[#000666] mt-2">
-                Alex Rivera
+                {data?.header?.full_name || "Alex Rivera"}
               </p>
+              <p> {data?.header?.date.now || "April-15-2026"}</p>
             </div>
           </div>
         </div>
@@ -119,11 +166,16 @@ export default function PreviewSection({ covertext }) {
           </span>
         </div>
 
-        <div className="rounded-full bg-[#ffd9df] px-4 py-2 flex items-center gap-2">
+        <div
+          onClick={() => setOpen(true)}
+          className="rounded-full bg-[#ffd9df] px-4 py-2 flex items-center gap-2"
+        >
           <span className="text-[10px] font-bold text-[#8f003f]">
             89% Match Strength
           </span>
         </div>
+        {/* MODAL */}
+        {open && <UpgradePro onClose={() => setOpen(false)} />}
       </div>
     </section>
   );

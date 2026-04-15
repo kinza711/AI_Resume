@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function PricingSection() {
   const plans = [
@@ -6,6 +7,7 @@ export default function PricingSection() {
       name: "Starter",
       price: "$0",
       desc: "Perfect to explore the basics",
+      path: "/login",
       features: [
         "1 Resume Upload",
         "Basic AI Suggestions",
@@ -17,6 +19,8 @@ export default function PricingSection() {
       name: "Pro",
       price: "$9/mo",
       desc: "For serious job seekers",
+      path: "/pro",
+      // path: <PopupPage />,
       features: [
         "Unlimited Uploads",
         "Advanced AI Optimization",
@@ -29,6 +33,7 @@ export default function PricingSection() {
       name: "Enterprise",
       price: "$29/mo",
       desc: "For professionals & teams",
+      path: "/pro",
       features: [
         "Everything in Pro",
         "Team Collaboration",
@@ -78,15 +83,17 @@ export default function PricingSection() {
                 ))}
               </ul>
 
-              <button
-                className={`w-full py-3 rounded-full font-bold transition-all ${
-                  plan.highlight
-                    ? "bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white"
-                    : "border border-[#000666] text-[#000666] hover:bg-[#000666] hover:text-white"
-                }`}
-              >
-                Get Started
-              </button>
+              <Link to={plan.path}>
+                <button
+                  className={`w-full py-3 rounded-full font-bold transition-all ${
+                    plan.highlight
+                      ? "bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white"
+                      : "border border-[#000666] text-[#000666] hover:bg-[#000666] hover:text-white"
+                  }`}
+                >
+                  Get Started
+                </button>
+              </Link>
             </div>
           ))}
         </div>

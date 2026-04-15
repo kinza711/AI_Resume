@@ -1,29 +1,38 @@
 import Cover from "../Models/CoverModel.js";
 import { generateCover } from "../services/coverlatterservice.js";
+import parser from "../utils/parser.cjs";
+
+const { parseResume } = parser;
+
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
 
 export const Coverlatter = async (req, res) => {
   try {
     const { jobDesc, tone } = req.body;
 
     // 1. file check
-    // if (!req.file) {
-    //   return res.status(400).json({ message: "No file uploaded" });
-    // }
-    // // 2. resume
-    // const resumeUrl = await uploadToCloudinary(req.file.buffer);
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+    // 2. resume
+    const resumeUrl = await uploadToCloudinary(req.file.buffer);
+    // 3.  PARSE (NEW STEP)
+    const originalText = await parseResume(req.file);
 
-    // if (!resume && !jobDesc) {
-    //   return res.status(400).json({ message: "Input required" });
-    // }
+    console.log("Parsed Text:", originalText.slice(0, 100));
 
-    const improvedlatter = await generateCover(tone, jobDesc);
+    if (!jobDesc) {
+      return res.status(400).json({ message: "Input required" });
+    }
+
+    const improvedlatter = await generateCover(originalText, jobDesc, tone);
 
     console.log("AI Response:", improvedlatter.slice(0, 300));
 
     const generateLatter = await Cover.create({
       tone,
       jobDesc,
-      //resume: resumeUrl,
+      resume: resumeUrl,
       coverlatter: improvedlatter,
     });
 

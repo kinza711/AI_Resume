@@ -4,8 +4,12 @@ import { FiDownload } from "react-icons/fi";
 // sab imports upar
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ResumeTemplate from "./WatermarkTemplate";
+import { useState } from "react";
+import UpgradePro from "../popups/UpgradePro";
 
 export default function RightPanel({ improvedText }) {
+  const [open, setOpen] = useState(false);
+
   <div className="text-sm text-[#191c1e] leading-relaxed font-medium whitespace-pre-line">
     {improvedText || "Upload a resume to see AI-enhanced preview..."}
   </div>;
@@ -299,38 +303,17 @@ export default function RightPanel({ improvedText }) {
 
         <p className="text-[#454652] py-2 text-xs font-medium">
           Guest users will have a small watermark on the final PDF.{" "}
-          <a className="text-[#5f00e3] font-bold hover:underline" href="#">
+          <button
+            onClick={() => setOpen(true)}
+            className="text-[#5f00e3] font-bold hover:underline"
+            href="#"
+          >
             Remove watermark
-          </a>
+          </button>
+          {/* MODAL */}
+          {open && <UpgradePro onClose={() => setOpen(false)} />}
         </p>
       </div>
     </div>
   );
 }
-
-// sab imports upar
-// import { PDFDownloadLink } from "@react-pdf/renderer";
-// import ResumeTemplate from "./WatermarkTemplate";
-// import { FiDownload } from "react-icons/fi";
-
-// // function ke andar sab kuch
-// export default function RightPanel({ improvedText }) {
-//   return (
-//     <div>
-//       {/* tumhara sara code yahan */}
-
-//       {/* Download button */}
-//       <PDFDownloadLink
-//         document={<ResumeTemplate data={improvedText} showWatermark={true} />}
-//         fileName="improved-resume.pdf"
-//       >
-//         {({ loading }) => (
-//           <button className="bg-gradient-to-tr from-[#5f00e3] to-[#ff5e8e] text-white rounded-full px-12 py-4 font-bold text-lg shadow-xl inline-flex items-center gap-2">
-//             <FiDownload />
-//             {loading ? "Preparing PDF..." : "Download Improved Resume"}
-//           </button>
-//         )}
-//       </PDFDownloadLink>
-//     </div>
-//   );
-// }

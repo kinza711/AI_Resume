@@ -16,6 +16,7 @@ import ProtectedRoute from "./utils/protected";
 import CoverLetterPage from "./pages/CoverLatterPage";
 import InterviewPage from "./pages/InterviewPage";
 import InterviewSessionPage from "./pages/InterviewSessionPage";
+import UpgradePro from "./components/popups/UpgradePro";
 
 const App = () => {
   return (
@@ -87,6 +88,7 @@ const App = () => {
             }
           />
 
+          <Route path="/pro" element={<UpgradePro />} />
           <Route path="/404" element={<F404Page />} />
           <Route path="/working" element={<WorkingPage />} />
           <Route path="/airesume" element={<ResuemPage />} />

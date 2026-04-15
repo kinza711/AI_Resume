@@ -6,9 +6,9 @@ import PreviewSection from "../components/coverlatter/PreviewSection";
 
 export default function CoverLetterPage({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [covertext, setCoverText] = useState(null);
 
   JSON.parse(localStorage.getItem("user"));
-  const [covertext, setCoverText] = useState("");
 
   return (
     <div className="bg-[#f7f9fb] text-[#191c1e] min-h-screen">

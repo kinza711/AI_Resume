@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function CTA() {
   return (
     <section id="about" className="px-6 py-24">
@@ -14,7 +15,7 @@ export default function CTA() {
           </p>
 
           <button className="bg-white text-purple-600 px-10 py-4 rounded-full text-lg font-bold shadow-xl hover:scale-105 active:scale-95 transition">
-            Get Started Free
+            <Link to="/login">Get Started Free</Link>
           </button>
         </div>
 
