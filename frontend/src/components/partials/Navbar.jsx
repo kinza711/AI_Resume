@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
+import Logo from "../../assets/resumelogo.png";
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,8 +10,13 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 z-50 w-full bg-white/70 backdrop-blur-xl flex justify-between items-center px-6 py-4">
         {/* Logo */}
-        <h1 className="text-2xl font-bold text-indigo-900">
-          <Link to="/">Kinetic Architect</Link>
+        <h1 className="flex  items-center  text-xl font-bold text-indigo-900">
+          <Link to="/" className="flex items-center">
+            <span className="flex  items-center ">
+              <img src={Logo} alt="logo" className="w-20 h-20 object-contain" />
+              Lumia AI
+            </span>
+          </Link>
         </h1>
 
         {/* Desktop Menu */}
@@ -33,7 +39,10 @@ export default function Navbar() {
 
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-4">
-          <Link to="/login" className="text-gray-600 hover:text-indigo-900">
+          <Link
+            to="/login"
+            className="text-gray-600 font-semibold hover:text-indigo-900 items-center justify-center flex "
+          >
             Login
           </Link>
           <Link

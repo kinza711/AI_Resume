@@ -8,6 +8,8 @@ import {
 } from "react-icons/md";
 import Navbar from "../components/partials/Navbar";
 import Footer from "../components/partials/Footer";
+import Pic from "../assets/construction.png";
+
 export default function MaintenancePage({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -29,7 +31,7 @@ text-4xl sm:text-5xl md:text-6xl lg:text-7xl
 text-primary leading-[1.1] -tracking-[0.03em]"
               >
                 We're{" "}
-                <span className="text-transparent bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 bg-clip-text aspirations-gradient">
+                <span className="text-transparent bg-gradient-to-r from-purple-600 to-pink-500  bg-clip-text aspirations-gradient">
                   Building
                 </span>{" "}
                 Your Career Future.
@@ -50,7 +52,7 @@ text-primary leading-[1.1] -tracking-[0.03em]"
                   className="flex-grow bg-transparent px-5 py-3 text-on-surface font-medium placeholder:text-slate-400 outline-none"
                 />
                 <button
-                  className="bg-gradient-to-r from-purple-600 via-pink-500 to-cyan-400 text-white px-6 sm:px-8 py-3 rounded-xl sm:rounded-full font-bold text-sm hover:scale-[1.02] active:scale-95 transition-all shadow-xl"
+                  className="bg-gradient-to-r from-purple-600 to-pink-500  text-white px-6 sm:px-8 py-3 rounded-xl sm:rounded-full font-bold text-sm hover:scale-[1.02] active:scale-95 transition-all shadow-xl"
                   type="submit"
                 >
                   Notify Me
@@ -89,9 +91,9 @@ text-primary leading-[1.1] -tracking-[0.03em]"
 aspect-[4/3] sm:aspect-video lg:aspect-square"
             >
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP1dVkOwSue-p0xU4cY9hx4BOa4aBLlxEZVaFfssvf4_d5kPijey7LM4xrE57BqSa3TMfv-jfpj3YFeiY_KYvwAMYcKUcBjlE3nYrC_GQH9MOVa8dupuCtDZM-q9Jjq_xVMJlSqvn87R5TzGPqeaOTQIze-2Nvjx7is-CC2rVCXsG17myMM2e6Aeomt8nz0pNkCHDljkMKscKXhfWQhHJpymczagsRx5uRjtUa3-TZf49TgPyKbLxnLJJIzyY8MuXg-ruW3Qtvvqyd"
+                src={Pic}
                 alt="Professional Architecting Future"
-                className="w-full h-full object-cover"
+                className="w-full h-full bg-amber-100 object-cover"
               />
 
               {/* Glass Panel Overlay */}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { LuFileUp } from "react-icons/lu";
 import api from "../../../services/api";
 import { useNavigate } from "react-router-dom";
+import { FaRegCircleCheck } from "react-icons/fa6";
 
 export default function GeneratorFormData() {
   const [file, setFile] = useState(null);
@@ -31,7 +32,7 @@ export default function GeneratorFormData() {
   // 🔥 START INTERVIEW FLOW
   const handleStartInterview = async () => {
     if (!file || !jobDesc) {
-      return alert("Resume aur Job Description dono required hain");
+      return alert("Resume & job Details both are required");
     }
 
     try {
@@ -133,10 +134,19 @@ export default function GeneratorFormData() {
       {/* Bottom Section (UNCHANGED UI) */}
       <div className="mt-10 flex flex-col items-center gap-6 text-center">
         <div className="flex flex-col sm:flex-row gap-4 text-sm text-gray-500">
-          <span>✔ Deep Analysis Enabled</span>
-          <span>✔ Voice Interaction Active</span>
+          <span className="flex items-center justify-center gap-2">
+            <FaRegCircleCheck color="green" size={16} /> Deep Analysis Enabled
+          </span>
+          <span className="flex items-center justify-center gap-2">
+            <FaRegCircleCheck color="green" size={16} /> Voice Interaction
+            Active
+          </span>
         </div>
 
+        {/* Error */}
+        {error && (
+          <p className="text-red-500 font-medium text-center">{error}</p>
+        )}
         <button
           onClick={handleStartInterview}
           disabled={loading}
@@ -146,12 +156,10 @@ export default function GeneratorFormData() {
         </button>
 
         <p className="text-xs text-gray-400 max-w-md">
-          AI will generate tailored questions based on your profile.
+          By starting, Lumina AI will generate a tailored set of technical and
+          behavioral questions based on your unique profile.
         </p>
       </div>
-
-      {/* Error */}
-      {error && <p className="text-red-500 font-medium text-center">{error}</p>}
     </div>
   );
 }

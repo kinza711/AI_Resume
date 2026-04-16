@@ -1,4 +1,5 @@
 import { FaGlobe, FaAt, FaTerminal } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -51,6 +52,9 @@ export default function Footer() {
             <li className="hover:text-cyan-400 cursor-pointer">Privacy</li>
             <li className="hover:text-cyan-400 cursor-pointer">Terms</li>
             <li className="hover:text-cyan-400 cursor-pointer">Security</li>
+            <li className="hover:text-cyan-400 cursor-pointer">
+              <Link to="/admin">Admin</Link>
+            </li>
           </ul>
         </div>
       </div>
