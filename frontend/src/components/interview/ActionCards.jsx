@@ -28,7 +28,7 @@ export default function ActionCards() {
           </p>
 
           <button className="bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition">
-            <Link to="/live">Start Session →</Link>
+            <Link to="/interdetails">Start Session →</Link>
           </button>
         </div>
       </div>

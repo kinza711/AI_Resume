@@ -12,7 +12,7 @@ export default function VideoPanel() {
 
         {/* AI Chip */}
         <div className="absolute top-6 left-6 bg-white/80 backdrop-blur px-4 py-2 rounded-full flex items-center gap-2">
-          <div className="w-2 h-2 bg-[#5f00e3] rounded-full animate-pulse" />
+          <div className="w-2 h-2 bg-[#6530b0] rounded-full animate-pulse" />
           <span className="text-xs font-bold text-[#000666]">
             AI ANALYZING...
           </span>

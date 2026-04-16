@@ -6,6 +6,7 @@ import userRoutes from "./Routes/userRoutes.js";
 import resuemRoutes from "./Routes/resumeRoutes.js";
 import profileRoutes from "./Routes/profileRoutes.js";
 import coverRoutes from "./Routes/coverRoutes.js";
+import interviewRoutes from "./Routes/interviewRoutes.js";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,6 +30,7 @@ app.use("/", userRoutes);
 app.use("/", resuemRoutes);
 app.use("/", profileRoutes);
 app.use("/", coverRoutes);
+app.use("/", interviewRoutes);
 
 //default apge
 app.get("/", (req, res) => {

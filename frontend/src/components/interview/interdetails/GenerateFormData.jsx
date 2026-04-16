@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { LuFileUp } from "react-icons/lu";
-import { BsStars } from "react-icons/bs";
-import api from "../../services/api";
+import api from "../../../services/api";
+import { useNavigate } from "react-router-dom";
 
-export default function GeneratorForm({ setCoverText }) {
+export default function GeneratorFormData() {
   const [file, setFile] = useState(null);
   const [jobDesc, setJobDesc] = useState("");
   const [tone, setTone] = useState("professional");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  // Handle drag & drop
+  // Drag & drop
   const handleDrop = (e) => {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
@@ -26,57 +28,72 @@ export default function GeneratorForm({ setCoverText }) {
     e.preventDefault();
   };
 
-  const handleUpload = async () => {
-    if (!file) return alert("Please select a resume");
-
-    const formData = new FormData();
-    formData.append("resume", file);
-    formData.append("jobDesc", jobDesc);
-    formData.append("tone", tone);
+  // 🔥 START INTERVIEW FLOW
+  const handleStartInterview = async () => {
+    if (!file || !jobDesc) {
+      return alert("Resume aur Job Description dono required hain");
+    }
 
     try {
       setLoading(true);
+      setError("");
 
-      const res = await api.post("/cover", formData);
+      const formData = new FormData();
+      formData.append("resume", file);
+      formData.append("jobDesc", jobDesc);
+      formData.append("tone", tone);
 
-      // FIX: backend field
-      const raw = res.data.data.coverlatter;
+      // optional: upload resume (if needed backend pe)
+      //await api.post("/cover", formData);
 
-      // SAFE PARSE
-      const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+      // 🔥 start interview
+      const res = await api.post(
+        "/start",
+        formData,
+        //     {
+        //     jobDesc,
+        //     resume,
+        //   }
+      );
 
-      console.log("FINAL PARSED:", parsed);
+      const firstQuestion = res.data;
 
-      setCoverText(parsed);
+      // 👉 move to interview page
+      navigate("/live", {
+        state: {
+          jobDesc,
+          firstQuestion,
+        },
+      });
     } catch (err) {
       console.error(err);
-      setError("Failed to generate cover letter");
+      setError("Failed to start interview");
     } finally {
       setLoading(false);
     }
   };
+
   return (
     <div className="space-y-8">
       {/* Inputs */}
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Upload (UI only for now) */}
-
+        {/* Upload */}
         <div
-          className="rounded-3xl p-6 flex flex-col  bg-white transition-colors cursor-pointer group"
+          className="rounded-3xl p-6 flex flex-col bg-white transition-colors cursor-pointer group"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
           <h3 className="font-bold text-[#000666] mb-4">Your Experience</h3>
+
           <div className="inner border-2 border-dashed border-[#c6c5d4] p-10 text-center flex flex-col items-center justify-center rounded-3xl">
-            <span className=" text-[#767683] text-5xl mb-4 group-hover:text-[#5f00e3] transition-colors">
-              {/* <TbCloudUpload /> */}
+            <span className="text-[#767683] text-5xl mb-4 group-hover:text-[#5f00e3] transition-colors">
               <LuFileUp size={40} />
             </span>
+
             <p className="text-[#454652] font-medium mb-4 text-center">
               Drag and drop your resume here or
             </p>
 
-            {/* Hidden input */}
             <input
               type="file"
               accept=".pdf,.doc,.docx"
@@ -84,6 +101,7 @@ export default function GeneratorForm({ setCoverText }) {
               className="hidden"
               id="resume-upload"
             />
+
             <label
               htmlFor="resume-upload"
               className="px-6 py-2 rounded-full border border-[#000666] text-[#000666] font-bold text-sm hover:bg-[#000666] hover:text-white transition-all cursor-pointer"
@@ -91,7 +109,6 @@ export default function GeneratorForm({ setCoverText }) {
               Select Resume
             </label>
 
-            {/* Selected file name */}
             {file && <p className="text-sm mt-2">{file.name}</p>}
 
             <p className="text-[#767683] text-xs mt-4">
@@ -103,6 +120,7 @@ export default function GeneratorForm({ setCoverText }) {
         {/* Job Description */}
         <div className="bg-white p-6 rounded-3xl shadow">
           <h3 className="font-bold text-[#000666] mb-4">Job Description</h3>
+
           <textarea
             value={jobDesc}
             onChange={(e) => setJobDesc(e.target.value)}
@@ -112,38 +130,28 @@ export default function GeneratorForm({ setCoverText }) {
         </div>
       </div>
 
-      {/* Tone + Button */}
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Tone */}
-        <div className="flex-1 bg-white p-6 rounded-3xl shadow">
-          <h3 className="font-bold text-[#000666] mb-4">Tone</h3>
-
-          <div className="flex gap-3 flex-wrap">
-            {["professional", "creative", "minimal"].map((t) => (
-              <button
-                key={t}
-                onClick={() => setTone(t)}
-                className={`px-4 py-2 rounded-full text-sm transition 
-                ${tone === t ? "bg-[#000666] text-white" : "bg-[#e6e8ea]"}`}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
+      {/* Bottom Section (UNCHANGED UI) */}
+      <div className="mt-10 flex flex-col items-center gap-6 text-center">
+        <div className="flex flex-col sm:flex-row gap-4 text-sm text-gray-500">
+          <span>✔ Deep Analysis Enabled</span>
+          <span>✔ Voice Interaction Active</span>
         </div>
 
-        {/* Generate Button */}
         <button
-          onClick={handleUpload}
-          className="md:w-1/3 bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-3xl font-bold text-lg py-4 px-6 flex items-center justify-center gap-2 hover:scale-105 transition-all duration-200 shadow-lg"
+          onClick={handleStartInterview}
+          disabled={loading}
+          className="px-8 sm:px-12 py-4 rounded-full text-white font-bold text-lg bg-gradient-to-r from-purple-600 to-pink-500 hover:scale-105 transition disabled:opacity-50"
         >
-          <BsStars className="text-xl" />
-          <span>{loading ? "Generating..." : "Generate Now"}</span>
+          {loading ? "Starting..." : "Start Interview →"}
         </button>
+
+        <p className="text-xs text-gray-400 max-w-md">
+          AI will generate tailored questions based on your profile.
+        </p>
       </div>
 
       {/* Error */}
-      {error && <p className="text-red-500 font-medium">{error}</p>}
+      {error && <p className="text-red-500 font-medium text-center">{error}</p>}
     </div>
   );
 }

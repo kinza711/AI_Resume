@@ -85,11 +85,11 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
         {/* Nav */}
         <nav className="flex flex-col gap-1">
-          {navItem("/dashboard", "Dashboard", <MdDashboard />)}
+          {navItem("/working", "Dashboard", <MdDashboard />)}
 
           {role === "Admin" && navItem("/usermanag", "Users", <FaUsersGear />)}
 
-          {/* {navItem("/working", "My Resumes", <PiReadCvLogoBold />)} */}
+          {navItem("/dashboard", "Resumes", <PiReadCvLogoBold />)}
           {navItem("/cover", "Cover Latter", <SlEnvolopeLetter />)}
           {navItem("/interview", "Interview", <VscRobot />)}
           {/* {navItem("/working", "History", <LuHistory />)} */}

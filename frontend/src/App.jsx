@@ -17,6 +17,7 @@ import CoverLetterPage from "./pages/CoverLatterPage";
 import InterviewPage from "./pages/InterviewPage";
 import InterviewSessionPage from "./pages/InterviewSessionPage";
 import UpgradePro from "./components/popups/UpgradePro";
+import InterDetailPage from "./pages/InterDetailPage";
 
 const App = () => {
   return (
@@ -84,6 +85,15 @@ const App = () => {
             element={
               <ProtectedRoute allowedRoles={["Admin", "user"]}>
                 <InterviewSessionPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/interdetails"
+            element={
+              <ProtectedRoute allowedRoles={["Admin", "user"]}>
+                <InterDetailPage />
               </ProtectedRoute>
             }
           />
