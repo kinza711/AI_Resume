@@ -6,7 +6,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaVideo, FaMicrophone } from "react-icons/fa";
 import { MdCallEnd } from "react-icons/md";
 
-export default function ControlBar() {
+export default function ControlBar({ onMic }) {
   const navigate = useNavigate();
   return (
     <footer className="fixed bottom-0 w-[75%] my-6  bg-white/70 rounded-full backdrop-blur-xl flex justify-center py-4 gap-4">
@@ -19,7 +19,10 @@ export default function ControlBar() {
         {/* <Back /> */}
         <IoMdSkipBackward />
       </button>
-      <button className="w-12 h-12 rounded-full items-center justify-center flex bg-[#eceef0]">
+      <button
+        onClick={onMic}
+        className="w-12 h-12 rounded-full items-center justify-center flex bg-[#eceef0]"
+      >
         <FaMicrophone />
       </button>
 

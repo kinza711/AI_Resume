@@ -28,6 +28,7 @@ export const answerInterviewService = async (messages) => {
     });
     return aiResponse.choices[0].message.content;
   } catch (err) {
-    console.error(err, "interview answer service not responding");
+    console.error(err);
+    return "Sorry, I couldn't understand that.";
   }
 };

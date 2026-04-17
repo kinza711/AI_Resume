@@ -44,10 +44,15 @@ export const replyInterview = async (req, res) => {
     const { messages } = req.body; // ✅ correct
 
     const reply = await answerInterviewService(messages); // ✅ correct service
-
-    res.json({ reply }); // ✅ better format
+    res.status(200).json({
+      message: "success",
+      data: reply, // ✅ string only
+    });
   } catch (err) {
     console.error(err, "interview reply controller not working");
-    res.status(500).json({ message: "interview reply controller not working" });
+    res.status(500).json({
+      message: "interview reply controller not working",
+      error: err,
+    });
   }
 };
