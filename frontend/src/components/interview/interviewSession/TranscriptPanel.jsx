@@ -1,6 +1,6 @@
 export default function TranscriptPanel({ messages }) {
   return (
-    <aside className="w-full md:w-[380px] border-l border-[#e0e3e5] bg-[#f2f4f6] flex flex-col">
+    <aside className="w-full h-[120%] py-10 md:w-[380px] border-l border-[#e0e3e5] bg-[#f2f4f6] flex flex-col">
       <div className="p-4 border-b border-[#e0e3e5]">
         <h2 className="font-bold text-[#000666]">Interview Session</h2>
       </div>
