@@ -44,26 +44,13 @@ export default function GeneratorFormData() {
       formData.append("jobDesc", jobDesc);
       formData.append("tone", tone);
 
-      // optional: upload resume (if needed backend pe)
-      //await api.post("/cover", formData);
-
       // 🔥 start interview
-      const res = await api.post(
-        "/start",
-        formData,
-        //     {
-        //     jobDesc,
-        //     resume,
-        //   }
-      );
+      const res = await api.post("/start", formData);
 
-      const firstQuestion = res.data;
-
-      // 👉 move to interview page
       navigate("/live", {
         state: {
-          jobDesc,
-          firstQuestion,
+          firstQuestion: res.data.question,
+          systemPrompt: res.data.systemPrompt,
         },
       });
     } catch (err) {

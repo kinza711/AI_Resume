@@ -29,29 +29,46 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 import { speak } from "../hooks/useSpeechSynthesis";
-
 import Header from "../components/header/Header";
 import VideoPanel from "../components/interview/interviewSession/VideoPanel";
 import TranscriptPanel from "../components/interview/interviewSession/TranscriptPanel";
 import ControlBar from "../components/interview/interviewSession/ControlBar";
+import { useRef } from "react";
 
 export default function InterviewSessionPage() {
   const location = useLocation();
-  const { firstQuestion } = location.state || {};
+  // const { firstQuestion } = location.state || {};
 
   const [messages, setMessages] = useState([]);
 
   const { startListening } = useSpeechRecognition();
+  const { firstQuestion, systemPrompt } = location.state || {};
 
   // 🎬 Start interview (AI speaks first)
+  // useEffect(() => {
+  //   if (firstQuestion) {
+  //     const initialMessages = [
+  //       {
+  //         role: "system",
+  //         content: systemPrompt, // ← real interview prompt with job desc + resume
+  //       },
+  //       {
+  //         role: "assistant",
+  //         content: firstQuestion,
+  //       },
+  //     ];
+
+  //     setMessages(initialMessages);
+
+  //     speak(firstQuestion);
+  //   }
+  // }, [firstQuestion]);
+  const hasSpoken = useRef(false); // ← add this
   useEffect(() => {
-    if (firstQuestion) {
+    if (firstQuestion && !hasSpoken.current) {
+      hasSpoken.current = true; // ← mark as spoken
+
       const initialMessages = [
-        {
-          role: "system",
-          content:
-            "You are a professional interviewer. Continue interview naturally.",
-        },
         {
           role: "assistant",
           content: firstQuestion,
@@ -59,7 +76,6 @@ export default function InterviewSessionPage() {
       ];
 
       setMessages(initialMessages);
-
       speak(firstQuestion);
     }
   }, [firstQuestion]);

@@ -6,6 +6,7 @@ import parser from "../utils/parser.cjs";
 
 const { parseResume } = parser;
 import uploadToCloudinary from "../utils/uploadToCloudinary.js";
+import { interviewPrompt } from "../prompts/interviewPrompt.js";
 
 export const startInterview = async (req, res) => {
   try {
@@ -27,9 +28,12 @@ export const startInterview = async (req, res) => {
     }
 
     const question = await startInterviewService(jobDesc, originalText);
+    const prompt = interviewPrompt(jobDesc, originalText); // generate it again
     res.status(200).json({
       message: "interview started susscessfully",
       question,
+      //systemPrompt: prompt, // ✅ send prompt to frontend
+      systemPrompt: "interview started susscessfully",
     });
   } catch (err) {
     console.error(err, "interview start controller not working");

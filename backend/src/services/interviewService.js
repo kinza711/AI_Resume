@@ -3,7 +3,7 @@ import { interviewPrompt } from "../prompts/interviewPrompt.js";
 
 export const startInterviewService = async (jobDesc, resume) => {
   try {
-    const prompt = interviewPrompt(jobDesc);
+    const prompt = interviewPrompt(jobDesc, resume);
     const aiResponse = await client.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
@@ -15,7 +15,8 @@ export const startInterviewService = async (jobDesc, resume) => {
     });
     return aiResponse.choices[0].message.content;
   } catch (err) {
-    console.error(err, "interview start service not responding");
+    console.error(err);
+    return "interview start service not responding";
   }
 };
 
