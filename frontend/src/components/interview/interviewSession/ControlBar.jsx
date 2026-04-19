@@ -8,41 +8,48 @@ import { MdCallEnd } from "react-icons/md";
 
 export default function ControlBar({ onMic }) {
   const navigate = useNavigate();
+
   return (
-    <footer className="fixed bottom-0 w-[75%] my-6  bg-white/70 rounded-full backdrop-blur-xl flex justify-center py-4 gap-4">
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-        className="w-12 h-12 items-center justify-center flex bg-gray-400 text-white rounded-full font-bold"
-      >
-        {/* <Back /> */}
-        <IoMdSkipBackward />
-      </button>
-      <button
-        onClick={onMic}
-        className="w-12 h-12 rounded-full items-center justify-center flex bg-[#eceef0]"
-      >
-        <FaMicrophone />
-      </button>
+    <footer className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[95%] sm:w-[90%] md:w-auto">
+      <div className="bg-white/70 backdrop-blur-xl shadow-lg rounded-full px-3 sm:px-5 py-3 flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4">
+        {/* Back */}
+        <button
+          onClick={() => navigate(-1)}
+          className="control-btn bg-gray-400 text-white"
+        >
+          <IoMdSkipBackward />
+        </button>
 
-      <button className="w-12 h-12 rounded-full items-center justify-center flex bg-[#eceef0]">
-        <FaVideo />
-      </button>
+        {/* Mic */}
+        <button onClick={onMic} className="control-btn bg-[#eceef0]">
+          <FaMicrophone />
+        </button>
 
-      <button className="w-14 h-14 rounded-full items-center justify-center flex bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white">
-        <FaRegCirclePlay />
-      </button>
+        {/* Video */}
+        <button className="control-btn bg-[#eceef0]">
+          <FaVideo />
+        </button>
 
-      <button className="w-12 h-12 rounded-full items-center justify-center flex bg-[#eceef0]">
-        <HiOutlineDotsVertical />
-      </button>
-      <button className="w-12 h-12 rounded-full items-center justify-center flex bg-[#eceef0]">
-        <FaClosedCaptioning />
-      </button>
-      <button className=" w-12 h-12 bg-red-500 items-center justify-center flex text-white rounded-full font-bold">
-        <MdCallEnd />
-      </button>
+        {/* Main Action */}
+        <button className="main-btn">
+          <FaRegCirclePlay />
+        </button>
+
+        {/* More */}
+        <button className="control-btn bg-[#eceef0]">
+          <HiOutlineDotsVertical />
+        </button>
+
+        {/* Captions */}
+        <button className="control-btn bg-[#eceef0] hidden sm:flex">
+          <FaClosedCaptioning />
+        </button>
+
+        {/* End Call */}
+        <button className="control-btn bg-red-500 text-white">
+          <MdCallEnd />
+        </button>
+      </div>
     </footer>
   );
 }

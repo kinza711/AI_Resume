@@ -15,7 +15,7 @@ export default function TranscriptPanel({ messages }) {
                   : "text-[#6c6cb2] items-end justify-end flex "
               }`}
             >
-              {msg.role === "assistant" ? "Interviewer" : "user"}
+              {msg.role === "assistant" ? "Interviewer" : "you"}
             </p>
 
             <p

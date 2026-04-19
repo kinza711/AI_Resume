@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+
+.control-btn {
+  @apply w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-full text-sm sm:text-base transition hover:scale-105;
+}
+
+.main-btn {
+  @apply w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full text-white 
+  bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] shadow-md transition hover:scale-110;
+}
