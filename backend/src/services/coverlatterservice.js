@@ -1,3 +1,4 @@
+import OpenAI from "openai";
 import client from "../Config/openai.js";
 import { coverlatterInstructions } from "../prompts/coverlatterPrompt.js";
 

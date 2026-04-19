@@ -1,4 +1,5 @@
-import client from "../config/openai.js";
+import OpenAI from "openai";
+import client from "../Config/openai.js";
 import { interviewPrompt } from "../prompts/interviewPrompt.js";
 
 export const startInterviewService = async (jobDesc, resume) => {
