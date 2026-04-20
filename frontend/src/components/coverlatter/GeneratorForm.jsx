@@ -9,6 +9,7 @@ export default function GeneratorForm({ setCoverText }) {
   const [tone, setTone] = useState("professional");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [errorlimit, setErrorlimit] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -56,6 +57,14 @@ export default function GeneratorForm({ setCoverText }) {
     } catch (err) {
       console.error(err);
       setError("Failed to generate cover letter");
+
+      setErrorlimit("Daily limit reached. Try again tomorrow frontend");
+      // if (err.response?.status === 403) {
+      //   setErrorlimit(err.response.data.message);
+      // } else {
+      //   setError("Failed to generate cover letter");
+      // }
+      //setErrorlimit(err.response.data.message);
     } finally {
       setLoading(false);
     }
@@ -63,6 +72,9 @@ export default function GeneratorForm({ setCoverText }) {
   return (
     <div className="space-y-8">
       {/* Inputs */}
+      {errorlimit && (
+        <p className="text-red-500 font-medium animate-pulse">{errorlimit}</p>
+      )}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Upload (UI only for now) */}
 
@@ -72,6 +84,7 @@ export default function GeneratorForm({ setCoverText }) {
           onDragOver={handleDragOver}
         >
           <h3 className="font-bold text-[#000666] mb-4">Your Experience</h3>
+
           <div className="inner border-2 border-dashed border-[#c6c5d4] p-10 text-center flex flex-col items-center justify-center rounded-3xl">
             <span className=" text-[#767683] text-5xl mb-4 group-hover:text-[#5f00e3] transition-colors">
               {/* <TbCloudUpload /> */}
@@ -140,7 +153,8 @@ export default function GeneratorForm({ setCoverText }) {
         {/* Generate Button */}
         <button
           onClick={handleUpload}
-          className="md:w-1/3 bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-3xl font-bold text-lg py-4 px-6 flex items-center justify-center gap-2 hover:scale-105 transition-all duration-200 shadow-lg"
+          disabled={loading}
+          className="md:w-1/3 bg-gradient-to-r from-[#5f00e3] to-[#ff5e8e] text-white rounded-3xl font-bold text-lg py-4 px-6 flex items-center justify-center gap-2 hover:scale-105 transition-all duration-200 shadow-lg disabled:opacity-50"
         >
           <BsStars className="text-xl" />
           <span>{loading ? "Generating..." : "Generate Now"}</span>
