@@ -6,7 +6,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { FaVideo, FaMicrophone } from "react-icons/fa";
 import { MdCallEnd } from "react-icons/md";
 
-export default function ControlBar({ onMic }) {
+export default function ControlBar({ onMic, onEnd }) {
   const navigate = useNavigate();
 
   return (
@@ -46,7 +46,7 @@ export default function ControlBar({ onMic }) {
         </button>
 
         {/* End Call */}
-        <button className="control-btn bg-red-500 text-white">
+        <button onClick={onEnd} className="control-btn bg-red-500 text-white">
           <MdCallEnd />
         </button>
       </div>

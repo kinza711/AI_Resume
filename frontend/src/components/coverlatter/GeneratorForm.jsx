@@ -37,7 +37,11 @@ export default function GeneratorForm({ setCoverText }) {
     try {
       setLoading(true);
 
-      const res = await api.post("/cover", formData);
+      const res = await api.post("/cover", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       // FIX: backend field
       const raw = res.data.data.coverlatter;
@@ -48,6 +52,7 @@ export default function GeneratorForm({ setCoverText }) {
       console.log("FINAL PARSED:", parsed);
 
       setCoverText(parsed);
+      (setFile(""), setJobDesc(""));
     } catch (err) {
       console.error(err);
       setError("Failed to generate cover letter");

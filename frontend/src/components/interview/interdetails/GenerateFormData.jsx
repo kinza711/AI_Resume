@@ -45,7 +45,11 @@ export default function GeneratorFormData() {
       formData.append("tone", tone);
 
       // 🔥 start interview
-      const res = await api.post("/start", formData);
+      const res = await api.post("/start", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       navigate("/live", {
         state: {
