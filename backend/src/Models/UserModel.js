@@ -24,6 +24,15 @@ const userSchema = new mongoose.Schema(
     // apiCalls: { type: Number, default: 0 },
     //},
     //pic: { type: String },
+    coverUsageCount: {
+      type: Number,
+      default: 0,
+    },
+
+    coverUsageDate: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true },
 );

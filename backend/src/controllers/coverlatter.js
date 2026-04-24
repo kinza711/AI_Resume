@@ -36,6 +36,15 @@ export const Coverlatter = async (req, res) => {
       coverlatter: improvedlatter,
     });
 
+    //  increment for usage limit
+    const user = req.userDoc;
+
+    user.coverUsageCount += 1;
+    user.coverUsageDate = new Date();
+
+    await user.save();
+    console.log(user.coverUsageDate);
+
     res.status(200).json({
       message: "details uploaded successfully",
       data: generateLatter,
