@@ -18,6 +18,7 @@ export default function Profile() {
   const { id } = useParams();
 
   const [formData, setFormData] = useState({});
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -62,7 +63,8 @@ export default function Profile() {
       alert("Profile updated successfully");
     } catch (err) {
       console.error("Update Error:", err);
-      alert("Profile not updated");
+      //alert("Profile not updated");
+      setError("Profile not updated");
     }
   };
 
@@ -129,7 +131,9 @@ export default function Profile() {
             {/* Grid Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               {/* Left Column */}
+
               <div className="lg:col-span-8 space-y-8">
+                {error && <p className="text-red-600 text-md">{error}</p>}
                 <PersonalInfoCard
                   formData={formData}
                   handleChange={handleChange}
