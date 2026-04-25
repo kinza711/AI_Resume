@@ -4,8 +4,8 @@ import { IoIosBriefcase } from "react-icons/io";
 import { Link } from "react-router-dom";
 import UpgradePro from "../popups/UpgradePro";
 
-export default function ActionCards() {
-  const [open, setOpen] = useState(false);
+export default function ActionCards({ onOpenPopup }) {
+  //const [open, setOpen] = useState(false);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
       {/* Practice Interview */}
@@ -53,13 +53,11 @@ export default function ActionCards() {
           </p>
 
           <button
-            onClick={() => setOpen(true)}
+           onClick={onOpenPopup} 
             className="border-2 border-[#c6c5d4] text-[#000666] px-6 py-3 rounded-full font-bold hover:bg-[#eceef0] transition flex items-center gap-2"
           >
             Add Job Details +
           </button>
-          {/* MODAL */}
-          {open && <UpgradePro onClose={() => setOpen(false)} />}
         </div>
       </div>
     </div>

@@ -9,10 +9,12 @@ import ProfileStrengthCard from "../components/profile/ProfileStrengthCard";
 import { IoIosSave } from "react-icons/io";
 import { HiMiniCheckBadge } from "react-icons/hi2";
 import api from "../services/api";
+import UpgradePro from "../components/popups/UpgradePro";
 
 export default function Profile() {
   const [profile, setProfile] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
 
   const [formData, setFormData] = useState({});
@@ -135,6 +137,7 @@ export default function Profile() {
                 <ProfessionalSummaryCard
                   formData={formData}
                   handleChange={handleChange}
+                  onOpenPopup={() => setOpen(true)}
                 />
               </div>
 
@@ -144,7 +147,7 @@ export default function Profile() {
                   formData={formData}
                   handleChange={handleChange}
                 />
-                <ProfileStrengthCard />
+                <ProfileStrengthCard onOpenPopup={() => setOpen(true)} />
 
                 {/* Action Buttons */}
                 <div className="pt-4 sticky top-24">
@@ -163,6 +166,8 @@ export default function Profile() {
             </div>
           </div>
         </main>
+        {/* MODAL */}
+        {open && <UpgradePro onClose={() => setOpen(false)} />}
       </div>
 
       {/* Background Accents */}

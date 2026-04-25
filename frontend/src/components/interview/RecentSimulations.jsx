@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import UpgradePro from "../popups/UpgradePro";
 
 const data = [
   { title: "Senior UX Designer Role", score: "92%" },
@@ -6,14 +7,17 @@ const data = [
   { title: "Tech Lead Systems Design", score: "78%" },
 ];
 
-export default function RecentSimulations() {
+export default function RecentSimulations({ onOpenPopup }) {
   return (
     <div className="bg-[#f2f4f6] p-6 lg:p-8 rounded-3xl">
       <div className="flex justify-between items-center mb-8">
         <h3 className="text-2xl font-bold text-[#000666]">
           Recent Simulations
         </h3>
-        <span className="text-[#5f00e3] font-bold text-sm cursor-pointer">
+        <span
+          onClick={onOpenPopup}
+          className="text-[#5f00e3] font-bold text-sm cursor-pointer"
+        >
           View All
         </span>
       </div>

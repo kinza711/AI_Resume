@@ -4,9 +4,11 @@ import Sidebar from "../components/sidebar/Sidebar";
 import ActionCards from "../components/interview/ActionCards";
 import RecentSimulations from "../components/interview/RecentSimulations";
 import ProTips from "../components/interview/ProTips";
+import UpgradePro from "../components/popups/UpgradePro";
 
 export default function InterviewPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="bg-[#f7f9fb] min-h-screen text-[#191c1e]">
@@ -53,13 +55,13 @@ export default function InterviewPage() {
           </header>
 
           {/* Action Cards */}
-          <ActionCards />
+          <ActionCards onOpenPopup={() => setOpen(true)} />
 
           {/* Bottom Section */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left */}
             <div className="lg:col-span-2">
-              <RecentSimulations />
+              <RecentSimulations onOpenPopup={() => setOpen(true)}/>
             </div>
 
             {/* Right */}
@@ -67,6 +69,8 @@ export default function InterviewPage() {
           </div>
         </div>
       </main>
+      {/* MODAL */}
+      {open && <UpgradePro onClose={() => setOpen(false)} />}
     </div>
   );
 }

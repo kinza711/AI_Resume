@@ -1,7 +1,11 @@
 import { BsStars } from "react-icons/bs";
 import { FaHeadSideVirus } from "react-icons/fa6";
 
-export default function ProfessionalSummaryCard({ formData, handleChange }) {
+export default function ProfessionalSummaryCard({
+  formData,
+  handleChange,
+  onOpenPopup,
+}) {
   return (
     <section className="bg-white/70 backdrop-blur-[20px] rounded-lg p-8 shadow-sm overflow-hidden relative">
       <div className="absolute top-0 right-0 w-32 h-32 bg-[#e9ddff]/30 blur-3xl -z-10"></div>
@@ -12,7 +16,10 @@ export default function ProfessionalSummaryCard({ formData, handleChange }) {
           </span>
           Professional Summary
         </h2>
-        <button className="flex items-center gap-2 px-4 py-1.5 bg-[#e0e0ff] text-[#000767] rounded-full text-xs font-bold hover:bg-[#bdc2ff] transition-colors">
+        <button
+          onClick={onOpenPopup}
+          className="flex items-center gap-2 px-4 py-1.5 bg-[#e0e0ff] text-[#000767] rounded-full text-xs font-bold hover:bg-[#bdc2ff] transition-colors"
+        >
           <span className="material-symbols-outlined text-sm">
             <BsStars />
           </span>
