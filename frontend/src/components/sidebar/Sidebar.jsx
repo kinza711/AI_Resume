@@ -68,7 +68,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         <div className="px-6 mb-8">
           <div className="flex items-center gap-3">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV-S-fEwogqvUeAnCKfTcGAWfGAxFXd8eWn9lFosJ3khLroZgikZov50XoKSOL-eeoH_WaTGw5RLa5kf3B5fCSe9hvQSD1xc_dzO2Rdqeks_hQYztq4Geec3x_4E6gnnnORezcVQwX3dVLW2oHF_p6ZPESYU7BhCW71tfhVcrvz5kLJQjCCVgT-ATp2FEdtKvS-yCtDBToF6dlmXaa2f4Btx1JWegq8WSOiV1WEI3DTbZtfBxexNCsU4M8iMsgJ77Q4-77VAuHzkDf"
+              src="https://i.pravatar.cc/151"
               alt="profile"
               className="w-10 h-10 rounded-full object-cover"
             />

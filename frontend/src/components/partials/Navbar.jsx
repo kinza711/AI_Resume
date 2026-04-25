@@ -11,11 +11,9 @@ export default function Navbar() {
       <nav className="fixed top-0 z-50 w-full bg-white/70 backdrop-blur-xl flex justify-between items-center px-6 py-4">
         {/* Logo */}
         <h1 className="flex  items-center  text-xl font-bold text-indigo-900">
+          <img src={Logo} alt="logo" className="w-20 h-20 object-contain" />
           <Link to="/" className="flex items-center">
-            <span className="flex  items-center ">
-              <img src={Logo} alt="logo" className="w-20 h-20 object-contain" />
-              Lumia AI
-            </span>
+            <span className="flex  items-center ">ResumAI</span>
           </Link>
         </h1>
 

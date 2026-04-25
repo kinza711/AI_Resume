@@ -51,10 +51,16 @@ export default function Hero() {
 
             {/* Social proof */}
             <div className="flex items-center gap-4 text-sm text-gray-500">
-              <div className="flex -space-x-2">
-                <div className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
-                <div className="w-8 h-8 rounded-full bg-gray-400 border-2 border-white"></div>
-                <div className="w-8 h-8 rounded-full bg-gray-500 border-2 border-white"></div>
+              <div className="flex -space-x-2 overflow-hidden">
+                <div className="w-8 h-8 rounded-full overflow-hidden object-cover bg-gray-300 border-2 border-white">
+                  <img src="https://i.pravatar.cc/151" alt="" />
+                </div>
+                <div className="w-8 h-8 rounded-full overflow-hidden object-cover bg-gray-400 border-2 border-white">
+                  <img src="https://i.pravatar.cc/152" alt="" />
+                </div>
+                <div className="w-8 h-8 rounded-full overflow-hidden object-cover bg-gray-500 border-2 border-white">
+                  <img src="https://i.pravatar.cc/153" alt="" />
+                </div>
               </div>
               <span>Joined by 10,000+ job seekers</span>
             </div>

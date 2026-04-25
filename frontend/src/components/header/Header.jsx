@@ -19,7 +19,7 @@ export default function Header({ setIsSidebarOpen }) {
 
         {/* Brand */}
         <span className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight font-headline">
-          Lumina AI
+          ResumAI
         </span>
       </div>
 
@@ -46,7 +46,7 @@ export default function Header({ setIsSidebarOpen }) {
 
         {/* Avatar */}
         <img
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUJE1Lib9i4n3bdIzQxzpgQ-IPg9hYbLg_o28y0ksWutzuj9VpNmuH4FJzkVkYTQ-4flQKtGV6XF1rZyFHYY-emm9Z67H_tCmzB4X3c86LUf7s_EmWMZ3QtgYH6eL190X0cpZn9Oy6S9_Gm_TKalHULujj2Z0BG5KkI51FnMjSC8NlfqZpjmtB81_lnfenwzX_pM8UR62kyPDs4vuBgGHzmCDzaBaqdN3KigU_camI56NMhCpKgviUSlR9HF0OBo0X4Q40MA59q8vX"
+          src="https://i.pravatar.cc/151"
           alt="avatar"
           className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover"
         />

@@ -7,9 +7,7 @@ export default function Footer() {
       <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
         {/* Brand */}
         <div>
-          <h3 className="text-lg font-bold text-white mb-6">
-            Kinetic Architect
-          </h3>
+          <h3 className="text-lg font-bold text-white mb-6">ResumAI</h3>
 
           <p className="text-slate-400 mb-6">
             Building the next generation of professional identity through
