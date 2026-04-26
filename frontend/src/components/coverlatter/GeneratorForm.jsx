@@ -58,7 +58,7 @@ export default function GeneratorForm({ setCoverText }) {
       console.error(err);
       setError("Failed to generate cover letter");
 
-      setErrorlimit("Daily limit reached. Try again tomorrow");
+      setErrorlimit("Daily limit reached. Try again after 24 hourse");
       // if (err.response?.status === 403) {
       //   setErrorlimit(err.response.data.message);
       // } else {
