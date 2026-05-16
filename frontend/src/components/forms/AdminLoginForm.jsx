@@ -4,6 +4,7 @@ import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 const AdminLoginForm = () => {
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -35,14 +36,14 @@ const AdminLoginForm = () => {
       // }
       // for checking user role
       if (!role) {
-        alert("user role is not matched");
+        setError("user role is not matched");
         return;
       }
       //   alert(res.data.message);
       alert("Wellcome Back To Admin Pannel");
       navigate("/admindashboard");
     } catch (err) {
-      alert(err.response?.data?.message || "login failed");
+      setError(err.response?.data?.message || "login failed");
       console.error(err, "login failed you'r not Admin");
     }
   };
@@ -105,6 +106,7 @@ const AdminLoginForm = () => {
           </div>
         </div>
 
+        {error && <p className="text-red-700 font-semibold">{error}</p>}
         {/* Options */}
         <div className="flex items-center justify-between py-2">
           <label className="flex items-center gap-3 cursor-pointer">

@@ -53,13 +53,13 @@ export const Login = async (req, res) => {
     // find user
     if (!user) {
       return res.status(401).json({
-        message: "user not exist please register",
+        message: "Email not exist please register",
       });
     }
     // match role
     if (role !== user.role) {
       return res.status(403).json({
-        message: "role not match invalid credintials",
+        message: "Invalid credintials",
       });
     }
 

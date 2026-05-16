@@ -5,6 +5,8 @@ import api from "../../services/api";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,17 +25,18 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const res = await api.post("/register", formData);
-      alert(res.data.message); // show backend message
+      console.log(res.data.message); // show backend message
       navigate("/login");
       console.log(res, "user registed succsessfuly");
     } catch (err) {
-      alert(err, "regsired failed");
+      setError("Email already exixt");
       console.error(err, "regsiterd failed you'r not Admin");
     }
   };
 
   return (
     <>
+      {error && <p className="text-red-700 font-semibold">{error}</p>}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <div>

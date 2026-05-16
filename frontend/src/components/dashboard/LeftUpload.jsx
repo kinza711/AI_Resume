@@ -12,6 +12,7 @@ export default function LeftPanel({ setImprovedText }) {
   const [jobRole, setJobRole] = useState("");
   const [customRole, setCustomRole] = useState(""); // user-defined
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   // Handle file selection
@@ -35,10 +36,10 @@ export default function LeftPanel({ setImprovedText }) {
   const handleUpload = async (e) => {
     e.preventDefault(); // prevent form submit reload
 
-    if (!file) {
-      alert("Please select a resume first");
-      return;
-    }
+    // if (!file) {
+    //   alert("Please select a resume first");
+    //   return;
+    // }
 
     const roleToSend = jobRole === "other" ? customRole : jobRole;
 
@@ -53,13 +54,13 @@ export default function LeftPanel({ setImprovedText }) {
       const res = await api.post("/upload", formData);
 
       const parsed = JSON.parse(res.data.data.improvedText);
-      setImprovedText(parsed); // 👈 IMPORTANT
+      setImprovedText(parsed); // IMPORTANT
       //setJobRole(parsed);
       alert(res.data.message);
       setFile(null);
       //navigate("/airesume");
     } catch (err) {
-      alert(err);
+      setError("Please select a resume first");
       console.error(err);
       //alert("Upload failed");
     } finally {
@@ -119,6 +120,8 @@ export default function LeftPanel({ setImprovedText }) {
           <p className="text-[#767683] text-xs mt-4">
             Supports PDF, DOCX (Max 5MB)
           </p>
+          {/* {error && <p className="text-[#767683] text-xs mt-4">{error}</p>} */}
+          {error && <p className="text-red-500 font-medium">{error}</p>}
         </div>
 
         {/* Improvement Type */}

@@ -3,6 +3,7 @@ import { FaEnvelope, FaLock, FaArrowRight } from "react-icons/fa";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -35,7 +36,7 @@ const LoginForm = () => {
       // }
       // for checking user role
       if (!role) {
-        alert("user role is not matched");
+        setError("user role is not matched");
         return;
       }
 
@@ -43,7 +44,7 @@ const LoginForm = () => {
 
       navigate("/dashboard");
     } catch (err) {
-      alert(err.response?.data?.message || "login failed");
+      setError(err.response?.data?.message || "login failed");
       console.error(err, "login failed you'r not Admin");
     }
   };
@@ -91,6 +92,7 @@ const LoginForm = () => {
           </div>
         </div>
 
+        {error && <p className="text-red-700 font-semibold">{error}</p>}
         {/* Remember */}
         <div className="flex items-center gap-2">
           <input type="checkbox" className="w-4 h-4 accent-purple-600" />

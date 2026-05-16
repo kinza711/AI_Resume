@@ -11,6 +11,9 @@ import { useParams } from "react-router-dom";
 import Back from "../buttons/Back";
 
 export default function EditUserForm() {
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const { id } = useParams();
   const [formData, setFormData] = useState({
     name: "",
@@ -43,9 +46,9 @@ export default function EditUserForm() {
     try {
       const res = await api.put(`/update/${id}`, formData);
       setFormData(res.data.data);
-      alert("user updared successfully");
+      setSuccess("user updared successfully");
     } catch (err) {
-      alert("user not updared");
+      setError("user not updated");
       console.error(err);
     }
   };
@@ -163,6 +166,11 @@ export default function EditUserForm() {
               </div>
             </div>
           </section>
+          {error ? (
+            <p className="text-red-700 font-semibold">{error}</p>
+          ) : (
+            <p className="text-green-700 font-semibold">{success}</p>
+          )}
 
           {/* Security */}
           <section>
